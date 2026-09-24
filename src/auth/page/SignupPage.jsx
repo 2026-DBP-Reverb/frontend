@@ -1,9 +1,7 @@
-import { Title } from "../style/StyledSingup";
+import { useState } from 'react';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
-import * as S from '../style/StyledSingup';
-import { useState } from 'react';
-
+import * as S from '../style/StyledSignup';
 export default function SignupPage() {
 
     const [isAgreed, setIsAgreed] = useState(false);
@@ -11,7 +9,7 @@ export default function SignupPage() {
   return (
     <main className="page-layout">
       <div className="page-content">
-        <Title>회원가입</Title>
+        <S.Title>회원가입</S.Title>
         
         <S.InputField>
           <S.Label htmlFor="email">이메일</S.Label>
