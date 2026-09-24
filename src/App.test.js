@@ -1,8 +1,12 @@
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import App from './App';
 
-test('renders the app header and main content', () => {
+test('moves to the signup page when the signup button is clicked', () => {
   render(<App />);
-  expect(screen.getByRole('heading', { name: 'Reverb', level: 1 })).toBeInTheDocument();
-  expect(screen.getByRole('main')).toBeInTheDocument();
+
+  fireEvent.click(screen.getByRole('button', { name: '회원가입' }));
+
+  expect(
+    screen.getByRole('heading', { name: '회원가입' })
+  ).toBeInTheDocument();
 });

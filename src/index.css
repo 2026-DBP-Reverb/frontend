@@ -28,3 +28,34 @@ img,
 svg {
   max-width: 100%;
 }
+#root {
+  width: 100%;
+  max-width: 430px;
+  min-height: 100vh;
+  min-height: 100dvh;
+  margin-inline: auto;
+  background: var(--White, #fafafa);
+  box-shadow: 0 0 24px rgb(0 0 0 / 5%);
+}
+
+.page-layout {
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  padding: calc(24px + env(safe-area-inset-top, 0px))
+    calc(25px + env(safe-area-inset-right, 0px))
+    calc(24px + env(safe-area-inset-bottom, 0px))
+    calc(25px + env(safe-area-inset-left, 0px));
+  background: var(--White, #fafafa);
+}
+
+.page-content {
+  width: 100%;
+  max-width: 340px;
+  margin-inline: auto;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}

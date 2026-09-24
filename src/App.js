@@ -1,16 +1,15 @@
-import './App.css';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import LoginPage from './auth/page/LoginPage';
+import SignupPage from './auth/page/SignupPage';
 
 function App() {
   return (
-    <div className="app-shell">
-      <header className="app-header">
-        <h1>Reverb</h1>
-      </header>
-      <main className="app-main">
-        <h2>반가워요!</h2>
-        <p>Reverb에 오신 것을 환영합니다.</p>
-      </main>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<LoginPage />} />
+        <Route path="/signup" element={<SignupPage />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
