@@ -1,0 +1,55 @@
+import styled from 'styled-components';
+import { title2 } from '../../styles/typography';
+import { title3 } from '../../styles/typography';
+export const Header = styled.div`
+  ${title2}
+  display: flex;
+  flex-direction: column;
+  align-self: stretch;
+  margin-top: 90px;
+`;
+
+export const AccentText = styled.span`
+  color: var(--DWU-Burgundy, #782c43);
+`;
+
+export const HeaderText = styled.span`
+  margin-top: -5px;
+  color: var(--Black, #17171b);
+`;
+
+export const MateList = styled.div`
+  width: 100%;
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 5px;
+`;
+
+export const FindTitle = styled.div`
+ ${title3}
+ margin-top: 35px;
+`;
+
+export const FindAccent = styled.span`
+  color: var(--DWU-Burgundy, #782C43);
+`;
+
+export const MeetingList = styled.div`
+  margin-top: 16px;
+   width: calc(
+    100% + (min(100vw, 430px) - 100%) / 2
+  );
+  display: flex;
+  gap: 5px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  user-select: none;
+
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+`;
