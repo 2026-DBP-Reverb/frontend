@@ -1,7 +1,7 @@
 import { css } from 'styled-components';
 
 export const text2 = css`
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR', sans-serif;
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
@@ -38,7 +38,7 @@ export const text1 = css`
 `;
 
 export const text1Bold = css`
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR', sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 700;
@@ -56,7 +56,7 @@ export const labelText = css`
 `;
 
 export const title2 = css`
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR', sans-serif;
   font-size: 24px;
   font-style: normal;
   font-weight: 700;
@@ -65,7 +65,7 @@ export const title2 = css`
 `;
 
 export const title3 = css`
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR', sans-serif;
   font-size: 20px;
   font-style: normal;
   font-weight: 700;
