@@ -48,7 +48,7 @@ export default function HomePage() {
     },
   ];
   return (
-    <main className="page-layout">
+    <main className="page-layout page-layout--with-navigation">
       <div className="page-content">
         <H.Header>
           <H.AccentText>나와 음악 취향이</H.AccentText>
@@ -61,7 +61,7 @@ export default function HomePage() {
           ))}
         </H.MateList>
         <H.FindTitle>
-          <H.FindAccent>음악모임</H.FindAccent>을 둘러봐요
+          <H.FindAccent>음악 모임</H.FindAccent>을 둘러봐요
         </H.FindTitle>
         <H.MeetingList {...meetingDragHandlers}>
           {meetings.map((meeting) => (

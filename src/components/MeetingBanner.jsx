@@ -5,22 +5,32 @@ import { text2Bold } from "../styles/typography";
 
 const Card = styled.div`
   position: relative;
-  width: min(368px, calc(100vw - 32px));
-  margin-top: 25px;
-  align-self: center;
-`;
-
-const CardImg = styled.img`
   width: 100%;
-  height: auto;
-  display: block;
+  aspect-ratio: 372 / 180;
+  overflow: hidden;
+  border-radius: 8px;
+  margin-bottom: 25px;
+
+  background-image:
+    linear-gradient(
+      180deg,
+      rgb(23 23 27 / 15%) 0%,
+      rgb(23 23 27 / 80%) 100%
+    ),
+    url('/images/MeetingBannerImage.jpg');
+  
+  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.40);
+
+  background-position: center;
+  background-size: cover;
 `;
 
 const CardContent = styled.div`
   position: absolute;
-  right: ${({ $isRegistered }) => ($isRegistered ? '20px' : '16px')};
-  bottom: 24px;
-  left: ${({ $isRegistered }) => ($isRegistered ? '20px' : '16px')};
+  right: 15px;
+  left: 15px;
+  bottom: 15px;
+  z-index: 1;
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
@@ -29,7 +39,7 @@ const CardContent = styled.div`
 `;
 
 const Description = styled.p`
-  ${text2}
+  ${text2};
   min-width: 0;
   margin: 0;
   display: flex;
@@ -46,7 +56,7 @@ const DescriptionStrong = styled.strong`
 `;
 
 const MateLink = styled(Link)`
-  ${text2Bold}
+  ${text2Bold};
   flex-shrink: 0;
   color: var(--White, #fafafa);
   text-decoration: none;
@@ -66,10 +76,6 @@ export default function MeetingBanner({ hasMusicPreference }) {
 
   return (
     <Card>
-      <CardImg
-        src={`${process.env.PUBLIC_URL}/images/MeetingCard.svg`}
-        alt="cardImg"
-      />
       <CardContent $isRegistered={hasMusicPreference}>
         <Description>
           <span>내가 좋아하는 음악을</span>

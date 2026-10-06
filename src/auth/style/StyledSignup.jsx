@@ -4,8 +4,9 @@ import { text1 } from '../../styles/typography';
 
 export const Title = styled.h1`
   ${title1};
-  margin-top:120px;
+  margin-top:90px;
   margin-bottom:50px;
+  width: 100%;
 `;
 
 export const InputField = styled.div`

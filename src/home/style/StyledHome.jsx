@@ -7,6 +7,7 @@ export const Header = styled.div`
   flex-direction: column;
   align-self: stretch;
   margin-top: 90px;
+  margin-bottom: 25px;
 `;
 
 export const AccentText = styled.span`
@@ -20,15 +21,15 @@ export const HeaderText = styled.span`
 
 export const MateList = styled.div`
   width: 100%;
-  margin-top: 10px;
   display: grid;
+  margin-bottom: 25px;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 5px;
 `;
 
 export const FindTitle = styled.div`
- ${title3}
- margin-top: 35px;
+ ${title3};
+  width: 100%;
 `;
 
 export const FindAccent = styled.span`
@@ -36,20 +37,15 @@ export const FindAccent = styled.span`
 `;
 
 export const MeetingList = styled.div`
+  width: 100%;
   margin-top: 16px;
-   width: calc(
-    100% + (min(100vw, 430px) - 100%) / 2
-  );
+
   display: flex;
   gap: 5px;
   overflow-x: auto;
-  padding-bottom: 4px;
-  user-select: none;
+
+  padding-right: 15px;
 
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
 `;

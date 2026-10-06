@@ -4,7 +4,7 @@ import { text2Bold } from '../../styles/typography';
 export const Logo = styled.img`
   width: 100px;
   height: 114px;
-  margin-top: 130px;
+  margin-top: 90px;
   object-fit: contain;
   align-self: center;
 `;

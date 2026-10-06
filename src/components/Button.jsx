@@ -18,7 +18,7 @@ const StyledButton = styled.button`
   ${text2Bold}
   box-sizing: border-box;
   display: flex;
-  width: 340px;
+  width: 100%;
   max-width: 100%;
   height: 55px;
   padding: 12px 16px;

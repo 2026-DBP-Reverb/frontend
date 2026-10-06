@@ -35,7 +35,7 @@ const Navigation = styled.nav`
   left: 50%;
   z-index: 10;
   width: 100%;
-  max-width: 430px;
+  max-width: 402px;
   height: 123px;
   padding: 15px 0;
   display: flex;
