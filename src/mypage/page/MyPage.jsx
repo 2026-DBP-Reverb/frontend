@@ -1,13 +1,16 @@
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import ProfileCard from "../../components/ProfileCard";
 import NavigationBar from "../../components/NavigationBar";
 import MenuList from "../../components/MenuList";
+import { getMyProfile, logout } from "../../auth/api/memberApi";
 import { MyPageMenu } from "../style/StyledMyPage";
 
 const myInfoMenus = [
   {
     icon: "/images/EditIcon.svg",
     label: "음악 취향 수정하기",
-    to: "/mypage/edit-music-taste",
+    to: "/music-taste/artists",
   },
   {
     icon: "/images/MatesIcon.svg",
@@ -21,30 +24,61 @@ const myInfoMenus = [
   },
 ];
 
-const accountMenus = [
-  {
-    icon: "/images/LogoutIcon.svg",
-    label: "로그아웃",
-    onClick: null,
-  },
-  {
-    icon: "/images/DeleteAccIcon.svg",
-    label: "회원 탈퇴",
-    onClick: null,
-  },
-];
-
 export default function MyPage() {
+  const navigate = useNavigate();
+  const [member, setMember] = useState(null);
+  const [errorMessage, setErrorMessage] = useState("");
+
+  useEffect(() => {
+    async function loadMyProfile() {
+      try {
+        const data = await getMyProfile();
+        setMember(data);
+      } catch (error) {
+        setErrorMessage(error.message);
+      }
+    }
+
+    loadMyProfile();
+  }, []);
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      navigate('/', {replace: true});
+    } catch (error) {
+      setErrorMessage(error.message);
+    }
+  };
+
+  const accountMenus = [
+    {
+      icon: "/images/LogoutIcon.svg",
+      label: "로그아웃",
+      onClick: handleLogout,
+    },
+    {
+      icon: "/images/DeleteAccIcon.svg",
+      label: "회원 탈퇴",
+      onClick: null,
+    },
+  ];
+
   return (
     <main className="page-layout page-layout--with-navigation">
       <div className="page-content">
         <div style={{paddingTop: "60px"}}/>
 
-        <ProfileCard
-          name="박솜솜"
-          profileImage="/images/Profile2.svg"
-          buttonText="프로필 편집"
-        />
+        {member && (
+          <ProfileCard
+            name={member.nickname}
+            profileImage={member.profileImageUrl}
+            instagramId={member.instagramId}
+            buttonText="프로필 편집"
+          />
+        )}
+
+        {errorMessage && <p role="alert">{errorMessage}</p>}
 
         <MyPageMenu>
           <MenuList

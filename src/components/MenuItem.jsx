@@ -22,14 +22,22 @@ const MenuItemButton = styled.button`
   width: 100%;
   height: 56px;
   padding: 24px 12px;
+  border: 0;
+  appearance: none;
   align-items: center;
   gap: 16px;
   text-decoration: none;
+  cursor: pointer;
 
   background: var(--White, #FAFAFA);
   color: var(--Black, #17171B);
   text-align: center;
   ${text2};
+
+  &:focus-visible {
+    outline: 2px solid var(--DWU-Burgundy, #782C43);
+    outline-offset: -2px;
+  }
 `;
 
 const MenuIcon = styled.img`
