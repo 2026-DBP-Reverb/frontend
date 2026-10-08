@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import '@fontsource/noto-sans-kr/400.css';
-import '@fontsource/noto-sans-kr/700.css';
+import '@fontsource/noto-sans-kr/korean-400.css';
+import '@fontsource/noto-sans-kr/korean-700.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
