@@ -1,10 +1,12 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 import * as S from '../style/StyledSignup';
 export default function SignupPage() {
 
-    const [isAgreed, setIsAgreed] = useState(false);
+  const [isAgreed, setIsAgreed] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <main className="page-layout">
@@ -121,7 +123,7 @@ export default function SignupPage() {
           </S.AgreementText>
         </S.AgreementButton>
 
-        <Button type="submit" style={{ marginTop: '50px' }}>
+        <Button type="submit" style={{ marginTop: '50px' }} onClick = {() => navigate('/home')}>
           가입하기
         </Button>
       </div>

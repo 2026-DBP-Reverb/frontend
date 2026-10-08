@@ -30,7 +30,7 @@ export default function LoginPage() {
           style={{ marginTop: '10px' }}
         />
 
-        <Button type="submit" style={{ marginTop: '50px' }}>
+        <Button type="submit" style={{ marginTop: '50px' }} onClick={() => navigate('/home')}>
           로그인
         </Button>
 
