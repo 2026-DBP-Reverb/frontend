@@ -151,6 +151,8 @@ export default function SelectArtist() {
             </S.SearchResultList>
           </S.SearchResult>
         </S.Content>
+
+        {errorMessage && <p role="alert">{errorMessage}</p>}
       </div>
 
       <Button

@@ -19,3 +19,6 @@ export const getMyArtists = () =>
 
 export const searchArtists = (query) =>
   request(`/api/music-tastes/artists/search?query=${encodeURIComponent(query)}`);
+
+export const getGenres = () =>
+  request('/api/music-tastes/genres');

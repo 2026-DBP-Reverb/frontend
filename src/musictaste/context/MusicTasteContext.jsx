@@ -26,8 +26,14 @@ export function MusicTasteProvider({children}) {
             ? nextArtists(previous.artists)
             : nextArtists,
       })),
-    setGenres: (genres) =>
-      setTaste((previous) => ({...previous, genres})),
+    setGenres: (nextGenres) =>
+      setTaste((previous) => ({
+        ...previous,
+        genres:
+          typeof nextGenres === 'function'
+            ? nextGenres(previous.genres)
+            : nextGenres,
+      })),
     setPlaylists: (playlists) =>
       setTaste((previous) => ({...previous, playlists})),
   };
