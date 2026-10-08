@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { text2Bold } from '../../styles/typography';
+import { labelText, text2Bold } from '../../styles/typography';
 
 export const Logo = styled.img`
   width: 100px;
@@ -19,4 +19,12 @@ export const LogoText = styled.p`
 
 export const SchoolText = styled.span`
   color: rgba(120, 44, 67, 0.7);
+`;
+
+export const ErrorMessage = styled.p`
+  ${labelText}
+  width: 100%;
+  margin: 8px 0 0;
+  color: #782c43;
+  text-align: left;
 `;
