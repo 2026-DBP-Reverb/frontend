@@ -11,7 +11,7 @@ import * as S from "../style/StyledSelectArtist";
 
 export default function SelectPlaylist() {
   const navigate = useNavigate();
-  const {taste, setPlaylists} = useMusicTaste();
+  const {taste, setPlaylists, resetTaste} = useMusicTaste();
 
   const [keyword, setKeyword] = useState("");
   const [searchResults, setSearchResults] = useState([]);
@@ -99,7 +99,7 @@ export default function SelectPlaylist() {
         tracks: taste.playlists,
       });
 
-      sessionStorage.removeItem("music-taste-draft");
+      resetTaste();
       navigate("/home");
     } catch (error) {
       setErrorMessage(error.message);

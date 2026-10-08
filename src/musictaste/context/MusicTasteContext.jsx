@@ -2,18 +2,47 @@ import { createContext, useContext, useEffect, useState } from "react";
 
 const MusicTasteContext = createContext(null);
 const STORAGE_KEY = "music-taste-draft";
+const INITIAL_TASTE = {
+  artists: [],
+  genres: [],
+  playlists: [],
+};
 
-export function MusicTasteProvider({children}) {
-  const [taste, setTaste] = useState(() => {
+function getStoredTaste() {
+  try {
     const saved = sessionStorage.getItem(STORAGE_KEY);
 
-    return saved
-      ? JSON.parse(saved)
-      : {artists: [], genres: [], playlists: []};
-  });
+    if (!saved) {
+      return INITIAL_TASTE;
+    }
+
+    const parsed = JSON.parse(saved);
+
+    return {
+      artists: Array.isArray(parsed.artists) ? parsed.artists : [],
+      genres: Array.isArray(parsed.genres) ? parsed.genres : [],
+      playlists: Array.isArray(parsed.playlists) ? parsed.playlists : [],
+    };
+  } catch {
+    sessionStorage.removeItem(STORAGE_KEY);
+    return INITIAL_TASTE;
+  }
+}
+
+export function MusicTasteProvider({children}) {
+  const [taste, setTaste] = useState(getStoredTaste);
 
   useEffect(() => {
-    sessionStorage.setItem(STORAGE_KEY, JSON.stringify(taste));
+    const hasDraft =
+      taste.artists.length > 0 ||
+      taste.genres.length > 0 ||
+      taste.playlists.length > 0;
+
+    if (hasDraft) {
+      sessionStorage.setItem(STORAGE_KEY, JSON.stringify(taste));
+    } else {
+      sessionStorage.removeItem(STORAGE_KEY);
+    }
   }, [taste]);
 
   const value = {
@@ -42,6 +71,7 @@ export function MusicTasteProvider({children}) {
             ? nextPlaylists(previous.playlists)
             : nextPlaylists,
       })),
+    resetTaste: () => setTaste(INITIAL_TASTE),
   };
 
   return (

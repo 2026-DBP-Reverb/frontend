@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { login } from '../api/memberApi';
+import { useMusicTaste } from '../../musictaste/context/MusicTasteContext';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 import * as L from '../style/StyledLogin';
@@ -11,6 +12,7 @@ export default function LoginPage() {
   const [errorMessage, setErrorMessage] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
+  const { resetTaste } = useMusicTaste();
 
   const canSubmit =
     email.trim().length > 0 && password.length > 0 && !isSubmitting;
@@ -22,6 +24,7 @@ export default function LoginPage() {
     try {
       setIsSubmitting(true);
       await login({ email, password });
+      resetTaste();
       navigate('/home');
     } catch (error) {
       setErrorMessage(error.message);

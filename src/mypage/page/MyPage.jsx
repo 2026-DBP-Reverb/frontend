@@ -4,6 +4,7 @@ import ProfileCard from "../../components/ProfileCard";
 import NavigationBar from "../../components/NavigationBar";
 import MenuList from "../../components/MenuList";
 import { getMyProfile, logout } from "../../auth/api/memberApi";
+import { useMusicTaste } from "../../musictaste/context/MusicTasteContext";
 import { MyPageMenu } from "../style/StyledMyPage";
 
 const myInfoMenus = [
@@ -26,6 +27,7 @@ const myInfoMenus = [
 
 export default function MyPage() {
   const navigate = useNavigate();
+  const {resetTaste} = useMusicTaste();
   const [member, setMember] = useState(null);
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -45,6 +47,7 @@ export default function MyPage() {
   const handleLogout = async () => {
     try {
       await logout();
+      resetTaste();
       navigate('/', {replace: true});
     } catch (error) {
       setErrorMessage(error.message);

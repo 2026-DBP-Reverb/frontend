@@ -40,7 +40,14 @@ export async function completeMusicTaste({artists, genres, tracks}) {
     },
     body: JSON.stringify({
       artists,
-      genres: genres.map(({genreId}) => ({genreId})),
+      genres: genres
+        .map((genre) => ({
+          genreId:
+            typeof genre === "object"
+              ? genre.genreId
+              : genre,
+        }))
+        .filter(({genreId}) => Number.isInteger(genreId)),
       tracks,
     }),
   });
