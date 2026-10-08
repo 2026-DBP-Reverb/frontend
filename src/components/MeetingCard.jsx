@@ -13,6 +13,10 @@ const Card = styled.div`
     rgba(23, 23, 27, 0.15) 0%,
     rgba(23, 23, 27, 0.8) 100%
   );
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const CardImage = styled.img`
@@ -24,15 +28,18 @@ const CardImage = styled.img`
 `;
 
 const CardInfo = styled.div`
-  ${text1}
+  ${text1};
   position: absolute;
-  right: 10px;
-  bottom: 10px;
-  left: 10px;
+  right: 0;
+  bottom: 15px;
+  left: 0;
+
   display: flex;
-  align-items: flex-end;
+  box-sizing: border-box;
+  padding: 0 15px;
   justify-content: space-between;
-  gap: 8px;
+  align-items: flex-end;
+
   color: var(--White, #fafafa);
 `;
 
@@ -45,17 +52,18 @@ const Title = styled.span`
 const MemberCount = styled.span`
   flex-shrink: 0;
   white-space: nowrap;
+  line-height: 1.3;
 `;
 
 export default function MeetingCard({
-  title,
-  image,
-  currentMembers,
-  maxMembers,
-}) {
+                                      title,
+                                      image,
+                                      currentMembers,
+                                      maxMembers,
+                                    }) {
   return (
     <Card>
-      <CardImage src={image} />
+      <CardImage src={image}/>
       <CardInfo>
         <Title>{title}</Title>
         <MemberCount>

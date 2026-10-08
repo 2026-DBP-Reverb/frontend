@@ -1,12 +1,12 @@
-import styled from 'styled-components';
-import { title2 } from '../../styles/typography';
-import { title3 } from '../../styles/typography';
+import styled from "styled-components";
+import { title2, title3 } from "../../styles/typography";
+
 export const Header = styled.div`
   ${title2}
   display: flex;
   flex-direction: column;
   align-self: stretch;
-  margin-top: 90px;
+  margin-top: 70px;
   margin-bottom: 25px;
 `;
 
@@ -15,7 +15,6 @@ export const AccentText = styled.span`
 `;
 
 export const HeaderText = styled.span`
-  margin-top: -5px;
   color: var(--Black, #17171b);
 `;
 
@@ -28,7 +27,7 @@ export const MateList = styled.div`
 `;
 
 export const FindTitle = styled.div`
- ${title3};
+  ${title3};
   width: 100%;
 `;
 
