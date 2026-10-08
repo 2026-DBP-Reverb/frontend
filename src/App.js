@@ -6,6 +6,7 @@ import MyPage from "./mypage/page/MyPage";
 import SelectArtist from "./musictaste/page/SelectArtist";
 import { MusicTasteProvider } from "./musictaste/context/MusicTasteContext";
 import SelectGenre from "./musictaste/page/SelectGenre";
+import SelectPlaylist from "./musictaste/page/SelectPlaylist";
 
 function App() {
   return (
@@ -17,7 +18,8 @@ function App() {
           <Route path="/home" element={<HomePage/>}/>
           <Route path="/mypage" element={<MyPage/>}/>
           <Route path="/music-taste/artists" element={<SelectArtist/>}/>
-          <Route path="/music-taste/genres" element={<SelectGenre />} />
+          <Route path="/music-taste/genres" element={<SelectGenre/>}/>
+          <Route path="/music-taste/playlists" element={<SelectPlaylist/>}/>
         </Routes>
       </MusicTasteProvider>
     </BrowserRouter>

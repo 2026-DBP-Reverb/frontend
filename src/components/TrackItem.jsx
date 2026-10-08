@@ -49,6 +49,7 @@ const Item = styled.div`
   width: 100%;
   flex-direction: column;
   align-items: flex-start;
+  align-self: stretch;
 `;
 
 const Content = styled.div`
@@ -61,9 +62,10 @@ const Content = styled.div`
 `;
 
 const AlbumImage = styled.img`
-  width: 88px;
-  height: 88px;
-  flex: 0 0 88px;
+  width: 40px;
+  height: 40px;
+  flex: 0 0 40px;
+  aspect-ratio: 1/1;
   border-radius: 8px;
   object-fit: cover;
 `;
@@ -74,15 +76,16 @@ const TrackInfo = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  gap: 2px;
+  gap: 6px;
   flex: 1 0 0;
 `;
 
 const TrackTitle = styled.p`
   align-self: stretch;
+  margin: 0;
+  padding: 0;
   width: 100%;
   color: var(--Black, #171717);
-  overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
   ${text1};
@@ -90,10 +93,11 @@ const TrackTitle = styled.p`
 
 const ArtistName = styled.p`
   align-self: stretch;
+  margin: 0;
+  padding: 0;
   width: 100%;
   color: var(--Slate-Blue);
   ${labelText};
-  overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 `;
