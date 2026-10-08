@@ -14,6 +14,12 @@ const variants = {
   },
 };
 
+const disabledStyle = {
+  background: '#BDBDBD',
+  color: '#fff',
+  border: '1px solid transparent',
+};
+
 const StyledButton = styled.button`
   ${text2Bold}
   box-sizing: border-box;
@@ -27,7 +33,6 @@ const StyledButton = styled.button`
   gap: 10px;
   border-radius: 6px;
   cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
-  opacity: ${({ disabled }) => (disabled ? 0.5 : 1)};
 `;
 
 export default function Button({
@@ -46,6 +51,7 @@ export default function Button({
       style={{
         ...variants[variant],
         ...style,
+        ...(disabled ? disabledStyle : {}),
       }}
     >
       {children}
