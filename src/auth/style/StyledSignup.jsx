@@ -1,6 +1,5 @@
 import styled from 'styled-components';
-import { title1 } from '../../styles/typography';
-import { text1 } from '../../styles/typography';
+import { labelText, text1, title1 } from '../../styles/typography';
 
 export const Title = styled.h1`
   ${title1};
@@ -52,4 +51,10 @@ export const Check = styled.img`
 export const AgreementText = styled.span`
   ${text1}
   color: var(--Black, #17171b);
+`;
+
+export const ErrorMessage = styled.p`
+  ${labelText}
+  margin: 0;
+  color: var(--Error, #9b2c43);
 `;
