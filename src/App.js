@@ -3,16 +3,21 @@ import LoginPage from "./auth/page/LoginPage";
 import SignupPage from "./auth/page/SignupPage";
 import HomePage from "./home/page/HomePage";
 import MyPage from "./mypage/page/MyPage";
+import SelectArtist from "./musictaste/page/SelectArtist";
+import { MusicTasteProvider } from "./musictaste/context/MusicTasteContext";
 
 function App() {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<LoginPage/>}/>
-        <Route path="/signup" element={<SignupPage/>}/>
-        <Route path="/home" element={<HomePage/>}/>
-        <Route path="/mypage" element={<MyPage/>}/>
-      </Routes>
+      <MusicTasteProvider>
+        <Routes>
+          <Route path="/" element={<LoginPage/>}/>
+          <Route path="/signup" element={<SignupPage/>}/>
+          <Route path="/home" element={<HomePage/>}/>
+          <Route path="/mypage" element={<MyPage/>}/>
+          <Route path="/music-taste/artists" element={<SelectArtist/>}/>
+        </Routes>
+      </MusicTasteProvider>
     </BrowserRouter>
   );
 }

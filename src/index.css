@@ -44,6 +44,7 @@ svg {
   min-height: 100dvh;
   display: flex;
   flex-direction: column;
+  align-items: center;
   padding:
     calc(15px + env(safe-area-inset-right, 0px))
     calc(15px + env(safe-area-inset-left, 0px));
@@ -52,6 +53,11 @@ svg {
 
 .page-layout--with-navigation {
   padding-bottom: calc(147px + env(safe-area-inset-bottom, 0px));
+}
+
+.page-layout--with-button {
+  position: relative;
+  padding-bottom: calc(120px + env(safe-area-inset-bottom, 0px));
 }
 
 .page-content {
