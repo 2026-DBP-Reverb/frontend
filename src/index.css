@@ -11,7 +11,7 @@ body {
   margin: 0;
   color: #202124;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-    'Noto Sans KR', 'Malgun Gothic', sans-serif;
+  'Noto Sans KR', 'Malgun Gothic', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -44,14 +44,21 @@ svg {
   min-height: 100dvh;
   display: flex;
   flex-direction: column;
-  padding:
-    calc(15px + env(safe-area-inset-right, 0px))
-    calc(15px + env(safe-area-inset-left, 0px));
+  align-items: center;
+  padding: calc(15px + env(safe-area-inset-right, 0px)) calc(15px + env(safe-area-inset-left, 0px));
   background: var(--White, #fafafa);
 }
 
 .page-layout--with-navigation {
   padding-bottom: calc(147px + env(safe-area-inset-bottom, 0px));
+}
+
+.page-layout--with-button {
+  position: relative;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  padding-bottom: calc(120px + env(safe-area-inset-bottom, 0px));
 }
 
 .page-content {
@@ -60,6 +67,7 @@ svg {
   margin-inline: auto;
   display: flex;
   flex: 1;
+  min-height: 0;
   flex-direction: column;
   align-items: center;
 }

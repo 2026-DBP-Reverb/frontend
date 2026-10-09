@@ -30,10 +30,11 @@ export default function MenuList({title, items}) {
 
       {items.map((item) => (
         <MenuItem
-          key={item.to}
+          key={item.to ?? item.label}
           icon={item.icon}
           label={item.label}
           to={item.to}
+          onClick={item.onClick}
         />
       ))}
     </Container>

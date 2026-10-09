@@ -1,12 +1,37 @@
+import { useEffect, useState } from 'react';
 import NavigationBar from '../../components/NavigationBar';
 import MeetingBanner from '../../components/MeetingBanner';
 import UserCard from '../../components/UserCard';
 import MeetingCard from '../../components/MeetingCard';
+import { getMyArtists } from '../../musictaste/api/musicTasteApi';
 import useDragScroll from '../hooks/useDragScroll';
 import * as H from '../style/StyledHome';
 
 export default function HomePage() {
   const meetingDragHandlers = useDragScroll();
+  const [hasMusicPreference, setHasMusicPreference] = useState(true);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    async function loadMusicPreference() {
+      try {
+        const artists = await getMyArtists();
+
+        if (isMounted) {
+          setHasMusicPreference(artists.length > 0);
+        }
+      } catch (error) {
+        console.error('음악 취향 아티스트 정보를 불러오지 못했습니다.', error);
+      }
+    }
+
+    loadMusicPreference();
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   const mates = [
     {
@@ -54,7 +79,7 @@ export default function HomePage() {
           <H.AccentText>나와 음악 취향이</H.AccentText>
           <H.HeaderText>딱 맞는 메이트 찾기</H.HeaderText>
         </H.Header>
-        <MeetingBanner hasMusicPreference={true}></MeetingBanner>
+        <MeetingBanner hasMusicPreference={hasMusicPreference} />
         <H.MateList>
           {mates.map((mate) => (
             <UserCard key={mate.id} {...mate} />

@@ -70,7 +70,7 @@ export default function MeetingBanner({hasMusicPreference}) {
     }
     : {
       label: "취향 등록하기",
-      path: "/preferences",
+      path: "/music-taste/artists",
     };
 
   return (

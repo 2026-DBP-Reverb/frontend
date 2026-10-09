@@ -1,6 +1,39 @@
 const API_BASE_URL =
   process.env.REACT_APP_API_BASE_URL ?? 'http://localhost:8080';
 
+export async function getMyProfile() {
+  const response = await fetch(`${API_BASE_URL}/api/members/me`, {
+    credentials: 'include',
+  });
+  const result = await response.json().catch(() => null);
+
+  if (!response.ok || result?.success === false) {
+    throw new Error(
+      result?.error?.detail ??
+        result?.message ??
+        '내 프로필 정보를 불러오지 못했습니다.'
+    );
+  }
+
+  return result?.data;
+}
+
+export async function logout() {
+  const response = await fetch(`${API_BASE_URL}/api/members/logout`, {
+    method: 'POST',
+    credentials: 'include',
+  });
+  const result = await response.json().catch(() => null);
+
+  if (!response.ok || result?.success !== true) {
+    throw new Error(
+      result?.error?.detail ??
+        result?.message ??
+        '로그아웃에 실패했습니다.'
+    );
+  }
+}
+
 export async function signup({ email, password, passwordConfirm }) {
   const response = await fetch(`${API_BASE_URL}/api/members/signup`, {
     method: 'POST',
