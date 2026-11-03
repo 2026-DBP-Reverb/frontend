@@ -4,6 +4,7 @@ import { getRecommendations } from "../api/mateApi";
 
 export default function FindMatesPage() {
     const [mates, setMates] = useState([]);
+    const [index, setIndex] = useState(0);
 
     useEffect(() => {
         // HomePage의 loadMusicPreference 모양을 따라서
@@ -27,18 +28,25 @@ export default function FindMatesPage() {
             isMounted = false;
         };
     }, []);
-
+    const currentMate = mates[index];
+    const showPrev = () => {setIndex((index - 1 + mates.length) % mates.length)};
+    const showNext = () => {setIndex((index + 1) % mates.length)};
     return (
         <main className="page-layout page-layout--with-navigation">
             <div className="page-content">
                 <h1>취향 메이트를 탐색해요</h1>
-                {mates.map((mate) => (
-                    <div key={mate.memberId}>
-                        닉네임: {mate.nickname}
-                        일치율: {mate.matchRate}%
-                    </div>
-                ))}
-
+                {currentMate ? (
+                    <>
+                        <button onClick={showPrev}>{"<"}</button>
+                        <div>
+                            닉네임:{currentMate.nickname}
+                            일치율:{currentMate.matchRate}
+                        </div>
+                        <button onClick={showNext}>{">"}</button>
+                    </>
+                ) : (
+                    <p>추천할 메이트가 없어요</p>
+                )}
                 <NavigationBar />
             </div>
         </main>
