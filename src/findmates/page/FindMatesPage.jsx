@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import NavigationBar from "../../components/NavigationBar";
 import { getMateProfile, getRecommendations, requestMate } from "../api/mateApi";
 import { useNavigate } from "react-router-dom";
+import * as S from "../style/StyledFindMates";
+import TrackItem from "../../components/TrackItem";
 
 export default function FindMatesPage() {
     const [mates, setMates] = useState([]);
@@ -73,27 +75,53 @@ export default function FindMatesPage() {
     return (
         <main className="page-layout page-layout--with-navigation">
             <div className="page-content">
-                <h1>취향 메이트를 탐색해요</h1>
+                <S.Title>
+                    <img src="/images/SearchBurgundy.svg" alt="" />
+                    <S.TitleAccent>취향 메이트</S.TitleAccent>를 탐색해요
+                </S.Title>
                 {currentMate ? (
                     <>
-                        <button onClick={showPrev}>{"<"}</button>
-                        <div>
-                            닉네임:{currentMate.nickname}
-                            일치율:{currentMate.matchRate}
-                        </div>
-                        {profile?.tracks.slice(0, 5).map((track) => (
-                            <div key={track.spotifyTrackId}>
-                                곡제목: {track.trackName}
-                                아티스트: {track.artistName}
-                            </div>
-                        ))}
-                        <button onClick={showNext}>{">"}</button>
-                        <button onClick={() => navigate(`/findmates/${currentMate.memberId}`)}>취향 보기</button>
+                        <S.Section>
+                            <S.Card>
+                                <S.ProfileRow>
+                                    <S.ArrowButton onClick={showPrev} aria-label="이전 메이트">
+                                        <img src="/images/ArrowLeftBurgundy.svg" alt="" />
+                                    </S.ArrowButton>
+
+                                    <S.Profile>
+                                        <S.ProfileImage src={currentMate.profileImageUrl} alt="" />
+                                        <S.Nickname>{currentMate.nickname}</S.Nickname>
+                                        <S.MatchRate>일치율 {currentMate.matchRate}%</S.MatchRate>
+                                    </S.Profile>
+
+                                    <S.ArrowButton onClick={showNext} aria-label="다음 메이트">
+                                        <img src="/images/ArrowRightBurgundy.svg" alt="" />
+                                    </S.ArrowButton>
+                                </S.ProfileRow>
+
+                        <S.Playlist>
+                            {profile?.tracks.slice(0, 5).map((track, i, list) => (
+                                <TrackItem
+                                    key={track.spotifyTrackId}
+                                    imageUrl={track.imageUrl}
+                                    trackName={track.trackName}
+                                    artistName={track.artistName}
+                                    buttonVisible={false}
+                                    showDivider={i < list.length - 1}
+                                />
+                            ))}
+                        </S.Playlist>
+                            </S.Card>
+
+                        <S.ButtonBar>
+                        <S.PillButton $variant="outlined" onClick={() => navigate(`/findmates/${currentMate.memberId}`)}>취향 보기</S.PillButton>
                         {currentMate.requestStatus === "SENT" ? (
-                            <button disabled>수락 대기 중</button>
+                            <S.PillButton $variant="disabled" disabled>수락 대기 중</S.PillButton >
                         ) : (
-                            <button onClick={handleRequest}>메이트 신청</button>
+                            <S.PillButton $variant="filled"  onClick={handleRequest}>메이트 신청</S.PillButton>
                         )}
+                        </S.ButtonBar>
+                    </S.Section>
                     </>
                 ) : (
                     <p>추천할 메이트가 없어요</p>
