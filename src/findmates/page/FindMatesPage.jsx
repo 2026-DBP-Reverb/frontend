@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import NavigationBar from "../../components/NavigationBar";
-import { getRecommendations } from "../api/mateApi";
+import { getMateProfile, getRecommendations } from "../api/mateApi";
 
 export default function FindMatesPage() {
     const [mates, setMates] = useState([]);
     const [index, setIndex] = useState(0);
+    const [profile, setProfile] = useState(null);
 
     useEffect(() => {
         // HomePage의 loadMusicPreference 모양을 따라서
@@ -28,7 +29,32 @@ export default function FindMatesPage() {
             isMounted = false;
         };
     }, []);
+
     const currentMate = mates[index];
+    useEffect(() => {
+        if (!currentMate) {
+            return;              // 아직 사람이 없으면 아무것도 안 함
+        }
+
+        let isMounted = true;
+
+        async function loadProfile() {
+            try{
+                const data = await getMateProfile(currentMate.memberId);
+                if (isMounted) {
+                    setProfile(data);
+                }
+            } catch(error) {
+                console.error('메이트 프로필을 불러오지 못했습니다.', error);
+            }
+        }
+
+        loadProfile();
+
+        return () => {
+            isMounted = false;
+        };
+    }, [currentMate?.memberId]);
     const showPrev = () => {setIndex((index - 1 + mates.length) % mates.length)};
     const showNext = () => {setIndex((index + 1) % mates.length)};
     return (
@@ -42,6 +68,12 @@ export default function FindMatesPage() {
                             닉네임:{currentMate.nickname}
                             일치율:{currentMate.matchRate}
                         </div>
+                        {profile?.tracks.slice(0, 5).map((track) => (
+                            <div key={track.spotifyTrackId}>
+                                곡제목: {track.trackName}
+                                아티스트: {track.artistName}
+                            </div>
+                        ))}
                         <button onClick={showNext}>{">"}</button>
                     </>
                 ) : (
