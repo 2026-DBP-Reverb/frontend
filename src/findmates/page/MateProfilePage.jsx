@@ -53,8 +53,7 @@ export default function MateProfilePage() {
     } else if (profile.requestStatus === "SENT") {
         actionButton = <S.ActionButton disabled>수락 대기 중</S.ActionButton>;
     } else if (profile.requestStatus === "RECEIVED") {
-        actionButton = <S.ActionButton disabled>받은 요청 확인</S.ActionButton>;
-    } else {
+        actionButton = <S.ActionButton onClick={() => navigate("/mypage/mates")}>받은 요청 확인</S.ActionButton>;    } else {
         actionButton = <S.ActionButton onClick={handleRequest}>메이트 신청</S.ActionButton>;
     }
 
