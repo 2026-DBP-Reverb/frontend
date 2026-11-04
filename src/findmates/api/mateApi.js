@@ -20,6 +20,9 @@ export const getRecommendations = () =>
 export const getMateProfile = (memberId) =>
     request(`/api/mates/${memberId}/profile`);
 
+export const getMyMates = () =>
+    request("/api/mates/requests/my");
+
 export async function requestMate(recipientId) {
     const response = await fetch(`${API_BASE_URL}/api/mates/requests`, {
         method: "POST",
@@ -38,6 +41,36 @@ export async function requestMate(recipientId) {
         throw new Error(
             result?.error?.detail ?? "메이트 신청에 실패했습니다.",
         );
+    }
+
+    return result?.data;
+}
+
+export async function acceptRequest(requestId) {
+    const response = await fetch(`${API_BASE_URL}/api/mates/requests/${requestId}/accept`, {
+        method: "POST",
+        credentials: "include",
+    });
+
+    const result = await response.json().catch(() => null);
+
+    if (!response.ok || result?.success === false) {
+        throw new Error(result?.error?.detail ?? "요청 수락에 실패했습니다.");
+    }
+
+    return result?.data;
+}
+
+export async function rejectRequest(requestId) {
+    const response = await fetch(`${API_BASE_URL}/api/mates/requests/${requestId}/reject`, {
+        method: "POST",
+        credentials: "include",
+    });
+
+    const result = await response.json().catch(() => null);
+
+    if (!response.ok || result?.success === false) {
+        throw new Error(result?.error?.detail ?? "요청 거절에 실패했습니다.");
     }
 
     return result?.data;
