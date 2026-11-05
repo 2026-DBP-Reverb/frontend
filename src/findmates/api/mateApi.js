@@ -48,7 +48,7 @@ export async function requestMate(recipientId) {
 
 export async function acceptRequest(requestId) {
     const response = await fetch(`${API_BASE_URL}/api/mates/requests/${requestId}/accept`, {
-        method: "POST",
+        method: "PUT",
         credentials: "include",
     });
 
@@ -63,7 +63,7 @@ export async function acceptRequest(requestId) {
 
 export async function rejectRequest(requestId) {
     const response = await fetch(`${API_BASE_URL}/api/mates/requests/${requestId}/reject`, {
-        method: "POST",
+        method: "PUT",
         credentials: "include",
     });
 
