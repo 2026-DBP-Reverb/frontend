@@ -80,7 +80,9 @@ export default function FindMatesPage() {
             <div className="page-content">
                 <S.Title>
                     <img src="/images/SearchBurgundy.svg" alt="" />
+                    <span>
                     <S.TitleAccent>취향 메이트</S.TitleAccent>를 탐색해요
+                    </span>
                 </S.Title>
                 {currentMate ? (
                     <>

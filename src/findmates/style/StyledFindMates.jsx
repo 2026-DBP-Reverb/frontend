@@ -6,6 +6,7 @@ export const Title = styled.h1`
   display: flex;
   align-items: center;
   gap: 8px;
+  width: 100%;
   padding: 0 16px;
   margin: 70px 0 25px;
   color: var(--Black, #17171b);
