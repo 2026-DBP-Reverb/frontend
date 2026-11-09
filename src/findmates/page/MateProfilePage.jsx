@@ -48,13 +48,23 @@ export default function MateProfilePage() {
 
     // 상태에 따라 버튼 하나 정하기
     let actionButton;
-    if (profile.instagramId) {
+    if (profile.matched) {
         actionButton = <S.ActionButton disabled>매칭 완료</S.ActionButton>;
     } else if (profile.requestStatus === "SENT") {
         actionButton = <S.ActionButton disabled>수락 대기 중</S.ActionButton>;
     } else if (profile.requestStatus === "RECEIVED") {
         actionButton = <S.ActionButton onClick={() => navigate("/mypage/mates")}>받은 요청 확인</S.ActionButton>;    } else {
         actionButton = <S.ActionButton onClick={handleRequest}>메이트 신청</S.ActionButton>;
+    }
+
+    // 매칭 여부에 따라 인스타 문구 정하기
+    let instagramText;
+    if (!profile.matched) {
+        instagramText = "매칭 후 공개돼요";
+    } else if (profile.instagramId) {
+        instagramText = `@${profile.instagramId}`;
+    } else {
+        instagramText = "인스타 아이디가 없어요";
     }
 
     return (
@@ -69,7 +79,7 @@ export default function MateProfilePage() {
                             <S.Info>
                                 <S.Nickname>{profile.nickname}</S.Nickname>
                                 <S.Instagram>
-                                    Instagram {profile.instagramId ? `@${profile.instagramId}` : "매칭 후 공개돼요"}
+                                    Instagram {instagramText}
                                 </S.Instagram>
                                 {actionButton}
                             </S.Info>
