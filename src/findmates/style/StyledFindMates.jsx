@@ -86,18 +86,3 @@ export const ButtonBar = styled.div`
   display: flex;
   gap: 8px;
 `;
-
-const pillVariants = {
-  outlined: `background: var(--White, #fafafa); color: var(--DWU-Burgundy, #782c43); border-color: var(--DWU-Burgundy, #782c43);`,
-  filled:   `background: var(--DWU-Burgundy, #782c43); color: var(--White, #fafafa); border-color: var(--DWU-Burgundy, #782c43);`,
-  disabled: `background: var(--White, #fafafa); color: var(--Gray, #BDBDBD); border-color: var(--Gray, #BDBDBD);`,
-};
-
-export const PillButton = styled.button`
-  ${text1Bold};
-  padding: 12px 20px;
-  border: 1px solid;
-  border-radius: 20px;
-  cursor: pointer;
-  ${({ $variant }) => pillVariants[$variant]}
-`;

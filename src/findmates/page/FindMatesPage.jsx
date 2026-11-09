@@ -4,6 +4,7 @@ import { getMateProfile, getRecommendations, requestMate } from "../api/mateApi"
 import { useNavigate } from "react-router-dom";
 import * as S from "../style/StyledFindMates";
 import TrackItem from "../../components/TrackItem";
+import PillButton from "../../components/PillButton";
 
 export default function FindMatesPage() {
     const [mates, setMates] = useState([]);
@@ -37,6 +38,8 @@ export default function FindMatesPage() {
         if (!currentMate) {
             return;              // 아직 사람이 없으면 아무것도 안 함
         }
+
+        setProfile(null);          // 이전 사람 프로필 먼저 지우기
 
         let isMounted = true;
 
@@ -114,11 +117,11 @@ export default function FindMatesPage() {
                             </S.Card>
 
                         <S.ButtonBar>
-                        <S.PillButton $variant="outlined" onClick={() => navigate(`/findmates/${currentMate.memberId}`)}>취향 보기</S.PillButton>
+                        <PillButton variant="outlined" onClick={() => navigate(`/findmates/${currentMate.memberId}`)}>취향 보기</PillButton>
                         {currentMate.requestStatus === "SENT" ? (
-                            <S.PillButton $variant="disabled" disabled>수락 대기 중</S.PillButton >
+                            <PillButton variant="disabled" disabled>수락 대기 중</PillButton >
                         ) : (
-                            <S.PillButton $variant="filled"  onClick={handleRequest}>메이트 신청</S.PillButton>
+                            <PillButton variant="filled"  onClick={handleRequest}>메이트 신청</PillButton>
                         )}
                         </S.ButtonBar>
                     </S.Section>
