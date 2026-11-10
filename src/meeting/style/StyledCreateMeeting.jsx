@@ -209,3 +209,10 @@ export const ErrorMessage = styled.p`
   color: var(--Error, #9b2c43);
   text-align: center;
 `;
+
+export const StatusMessage = styled.p`
+  ${text1}
+  margin: 40px 0 0;
+  color: var(--Slate-Blue, #48535c);
+  text-align: center;
+`;
