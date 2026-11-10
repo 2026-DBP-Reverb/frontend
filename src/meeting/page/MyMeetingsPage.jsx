@@ -62,7 +62,12 @@ export default function MyMeetingsPage() {
 
                   <S.ActionRow>
                     <S.PrimaryActions>
-                      <S.ActionButton type="button">수정</S.ActionButton>
+                      <S.ActionButton
+                        type="button"
+                        onClick={() => navigate(`/meetings/${meeting.id}/edit`)}
+                      >
+                        수정
+                      </S.ActionButton>
                       <S.ActionButton type="button">멤버 관리</S.ActionButton>
                     </S.PrimaryActions>
                     <S.DeleteButton type="button">삭제</S.DeleteButton>

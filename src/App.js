@@ -10,6 +10,7 @@ import { MusicTasteProvider } from "./musictaste/context/MusicTasteContext";
 import SelectGenre from "./musictaste/page/SelectGenre";
 import SelectPlaylist from "./musictaste/page/SelectPlaylist";
 import CreateMeetingPage from './meeting/page/CreateMeetingPage';
+import EditMeetingPage from './meeting/page/EditMeetingPage';
 import MyMeetingsPage from './meeting/page/MyMeetingsPage';
 import FindMatesPage from "./findmates/page/FindMatesPage";
 import MateProfilePage from "./findmates/page/MateProfilePage";
@@ -32,6 +33,7 @@ function App() {
             <Route path="/music-taste/genres" element={<SelectGenre/>}/>
             <Route path="/music-taste/playlists" element={<SelectPlaylist/>}/>
             <Route path="/meetings/new" element={<CreateMeetingPage />} />
+            <Route path="/meetings/:meetupId/edit" element={<EditMeetingPage />} />
             <Route path="/mypage/meetings" element={<MyMeetingsPage />} />
             <Route path="/findmates" element={<FindMatesPage/>}/>
             <Route path="/findmates/:memberId" element={<MateProfilePage/>}/>
