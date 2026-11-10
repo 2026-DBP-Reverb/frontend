@@ -6,7 +6,7 @@ import * as S from '../style/StyledMeetingDetail';
 
 const API_BASE_URL =
   process.env.REACT_APP_API_BASE_URL ?? 'http://localhost:8080';
-const DEFAULT_MEETING_IMAGE_URL = '/images/MeetingDetailCover.jpg';
+const DEFAULT_MEETING_IMAGE_URL = '/images/Meeting1.svg';
 const DEFAULT_PROFILE_IMAGE_URL = '/images/Profile1.svg';
 const CATEGORY_LABELS = {
   CONCERT: '콘서트',
