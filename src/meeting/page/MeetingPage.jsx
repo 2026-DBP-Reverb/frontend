@@ -1,75 +1,103 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import NavigationBar from "../../components/NavigationBar";
 import SearchBar from "../../components/SearchBar";
+import { getMeetups, resolveMeetupImageUrl } from "../api/meetupApi";
 import MeetingListCard from "../components/MeetingListCard";
 import * as M from "../style/StyledMeeting";
 
-const meetings = [
-  {
-    id: 1,
-    title: "부산락페 동행해요",
-    image: "/images/meeting2.svg",
-    currentMembers: 2,
-    maxMembers: 4,
-    date: "2026년 10월 2일",
-    tags: ["부산", "페스티벌"],
-    joined: false,
-  },
-  {
-    id: 2,
-    title: "긴 텍스트 가나다라 모임 마바사 아자차카 타파하",
-    image: "/images/meeting1.svg",
-    currentMembers: 2,
-    maxMembers: 4,
-    date: "2026년 10월 2일",
-    tags: ["인천", "기타"],
-    joined: true,
-  },
-  {
-    id: 3,
-    title: "에즈라콜렉티브 내한공연",
-    image: "/images/meeting1.svg",
-    currentMembers: 1,
-    maxMembers: 2,
-    date: "2026년 10월 2일",
-    tags: ["광진구", "콘서트"],
-    joined: true,
-  },
-  {
-    id: 4,
-    title: "엘피바 같이 가실 분",
-    image:"/images/meeting2.svg",
-    currentMembers: 1,
-    maxMembers: 3,
-    date: "2026년 10월 2일",
-    tags: ["용산구", "리스닝"],
-    joined: false,
-  },
-  {
-    id: 5,
-    title: "에즈라콜렉티브 내한공연",
-    image: "/images/meeting1.svg",
-    currentMembers: 1,
-    maxMembers: 2,
-    date: "2026년 10월 2일",
-    tags: ["광진구", "콘서트"],
-    joined: false,
-  },
-  {
-    id: 6,
-    title: "엘피바 같이 가실 분",
-    image: "/images/meeting2.svg",
-    currentMembers: 1,
-    maxMembers: 3,
-    date: "2026년 10월 2일",
-    tags: ["용산구", "리스닝"],
-    joined: false,
-  },
-];
+const CATEGORY_LABELS = {
+  FESTIVAL: "페스티벌",
+  CONCERT: "콘서트",
+  LISTENING: "리스닝",
+  PERFORMANCE: "공연",
+  BUSKING: "버스킹",
+  OTHER: "기타",
+};
+
+function formatDate(startsAt) {
+  if (!startsAt) {
+    return "날짜 미정";
+  }
+
+  const date = new Date(startsAt);
+
+  if (Number.isNaN(date.getTime())) {
+    return "날짜 미정";
+  }
+
+  return new Intl.DateTimeFormat("ko-KR", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  }).format(date);
+}
+
+function formatPlace(place) {
+  if (!place?.trim()) {
+    return "장소 미정";
+  }
+
+  const firstRegion = place.trim().split(/\s+/)[0];
+
+  return firstRegion.replace(
+    /(특별자치도|특별자치시|광역시|특별시)$/,
+    ""
+  );
+}
+
+function toMeetingCard(meetup) {
+  return {
+    id: meetup.meetupId,
+    title: meetup.title,
+    image: resolveMeetupImageUrl(meetup.imageUrl),
+    currentMembers: meetup.participantCount,
+    maxMembers: meetup.capacity,
+    date: formatDate(meetup.startsAt),
+    tags: [
+      formatPlace(meetup.place),
+      CATEGORY_LABELS[meetup.category] ?? meetup.category ?? "기타",
+    ],
+    joined: meetup.joined,
+  };
+}
 
 export default function MeetingPage() {
+  const [meetings, setMeetings] = useState([]);
   const [activeTab, setActiveTab] = useState("browse");
   const [searchText, setSearchText] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
+  const [errorMessage, setErrorMessage] = useState("");
+
+  useEffect(() => {
+    let isMounted = true;
+
+    async function loadMeetups() {
+      try {
+        setIsLoading(true);
+        setErrorMessage("");
+
+        const meetupData = await getMeetups();
+
+        if (isMounted) {
+          setMeetings(meetupData.map(toMeetingCard));
+        }
+      } catch (error) {
+        if (isMounted) {
+          setErrorMessage(error.message);
+        }
+      } finally {
+        if (isMounted) {
+          setIsLoading(false);
+        }
+      }
+    }
+
+    loadMeetups();
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   const visibleMeetings = useMemo(() => {
     const normalizedSearch = searchText.trim().toLowerCase();
@@ -85,7 +113,7 @@ export default function MeetingPage() {
 
       return matchesTab && matchesSearch;
     });
-  }, [activeTab, searchText]);
+  }, [activeTab, meetings, searchText]);
 
   return (
     <main className="page-layout page-layout--with-navigation">
@@ -123,14 +151,26 @@ export default function MeetingPage() {
             </M.TabButton>
           </M.TabList>
 
-          <M.MeetingList>
-            {visibleMeetings.map((meeting) => (
-              <MeetingListCard key={meeting.id} {...meeting} />
-            ))}
-
-            {visibleMeetings.length === 0 && (
-              <M.EmptyMessage>해당하는 모임이 없어요.</M.EmptyMessage>
+          <M.MeetingList aria-live="polite">
+            {isLoading && (
+              <M.StateMessage>모임을 불러오는 중...</M.StateMessage>
             )}
+
+            {!isLoading && errorMessage && (
+              <M.ErrorMessage role="alert">{errorMessage}</M.ErrorMessage>
+            )}
+
+            {!isLoading &&
+              !errorMessage &&
+              visibleMeetings.map((meeting) => (
+                <MeetingListCard key={meeting.id} {...meeting} />
+              ))}
+
+            {!isLoading &&
+              !errorMessage &&
+              visibleMeetings.length === 0 && (
+                <M.StateMessage>해당하는 모임이 없어요.</M.StateMessage>
+              )}
           </M.MeetingList>
         </M.Content>
 

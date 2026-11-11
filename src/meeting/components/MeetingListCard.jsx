@@ -1,5 +1,7 @@
 import * as M from "../style/StyledMeeting";
 
+const FALLBACK_IMAGE = "/images/Meeting1.svg";
+
 export default function MeetingListCard({
   title,
   image,
@@ -8,10 +10,22 @@ export default function MeetingListCard({
   date,
   tags,
 }) {
+  const handleImageError = (event) => {
+    if (event.currentTarget.src.endsWith(FALLBACK_IMAGE)) {
+      return;
+    }
+
+    event.currentTarget.src = FALLBACK_IMAGE;
+  };
+
   return (
     <M.MeetingCard>
       <M.MeetingImageFrame>
-        <M.MeetingImage src={image} alt="" />
+        <M.MeetingImage
+          src={image}
+          alt=""
+          onError={handleImageError}
+        />
       </M.MeetingImageFrame>
 
       <M.MeetingInfo>

@@ -141,11 +141,19 @@ export const Tag = styled.span`
   white-space: nowrap;
 `;
 
-export const EmptyMessage = styled.p`
+export const StateMessage = styled.p`
   ${text1};
   width: 100%;
   margin: 24px 0;
   color: var(--Gray, #bdbdbd);
+  text-align: center;
+`;
+
+export const ErrorMessage = styled.p`
+  ${text1};
+  width: 100%;
+  margin: 24px 0;
+  color: var(--DWU-Burgundy, #782c43);
   text-align: center;
 `;
 
