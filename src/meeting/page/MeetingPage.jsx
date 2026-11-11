@@ -9,8 +9,6 @@ const CATEGORY_LABELS = {
   FESTIVAL: "페스티벌",
   CONCERT: "콘서트",
   LISTENING: "리스닝",
-  PERFORMANCE: "공연",
-  BUSKING: "버스킹",
   OTHER: "기타",
 };
 
