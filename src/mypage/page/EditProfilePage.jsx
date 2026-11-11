@@ -40,7 +40,9 @@ export default function EditProfilePage() {
   const [saveError, setSaveError] = useState("");
   const [isSaving, setIsSaving] = useState(false);
   const nicknameError = getNicknameError(nickname, nicknameTouched);
-  const canSubmit = Boolean(profile) && !isSaving && getNicknameError(nickname, true) === "";
+  const canSubmit = Boolean(profile) && !isSaving &&
+    getNicknameError(nickname, true) === "" &&
+    (instagramId === "" || instagramIdError === "");
 
   useEffect(() => {
     let active = true;
@@ -64,7 +66,7 @@ export default function EditProfilePage() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (!canSubmit || (instagramId && instagramIdError)) return;
+    if (!canSubmit) return;
 
     setIsSaving(true);
     setSaveError("");
