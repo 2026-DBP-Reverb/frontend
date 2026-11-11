@@ -17,6 +17,7 @@ import MyMeetingsPage from "./meeting/page/MyMeetingsPage";
 import FindMatesPage from "./findmates/page/FindMatesPage";
 import MateProfilePage from "./findmates/page/MateProfilePage";
 import MyMatesPage from "./findmates/page/MyMatesPage";
+import MeetingPage from "./meeting/page/MeetingPage";
 import EditProfilePage from "./mypage/page/EditProfilePage";
 
 
@@ -44,6 +45,7 @@ function App() {
             <Route path="/findmates" element={<FindMatesPage/>}/>
             <Route path="/findmates/:memberId" element={<MateProfilePage/>}/>
             <Route path="/mypage/mates" element={<MyMatesPage/>}/>
+            <Route path="/meetings" element={<MeetingPage/>}/>
             <Route path="*" element={<Navigate to="/home" replace/>}/>
           </Route>
         </Routes>
@@ -53,3 +55,4 @@ function App() {
 }
 
 export default App;
+
