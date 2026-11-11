@@ -3,6 +3,7 @@ import * as M from "../style/StyledMeeting";
 const FALLBACK_IMAGE = "/images/Meeting1.svg";
 
 export default function MeetingListCard({
+  id,
   title,
   image,
   currentMembers,
@@ -19,7 +20,10 @@ export default function MeetingListCard({
   };
 
   return (
-    <M.MeetingCard>
+    <M.MeetingCard
+      to={`/meetings/${id}`}
+      aria-label={`${title} 상세 보기`}
+    >
       <M.MeetingImageFrame>
         <M.MeetingImage
           src={image}

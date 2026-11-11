@@ -175,7 +175,7 @@ export default function MeetingPage() {
         </M.Content>
 
         <M.FloatingActionLayer>
-          <M.CreateMeetingButton type="button">
+          <M.CreateMeetingButton to="/meetings/new">
             모임 만들기
           </M.CreateMeetingButton>
         </M.FloatingActionLayer>

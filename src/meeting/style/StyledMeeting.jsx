@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 import {
   labelText,
   text1,
@@ -57,7 +58,7 @@ export const MeetingList = styled.div`
   gap: 22px;
 `;
 
-export const MeetingCard = styled.article`
+export const MeetingCard = styled(Link)`
   width: 100%;
   min-width: 0;
   min-height: 84px;
@@ -65,6 +66,9 @@ export const MeetingCard = styled.article`
   align-items: stretch;
   gap: 12px;
   padding: 0 8px;
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
 `;
 
 export const MeetingImageFrame = styled.div`
@@ -171,7 +175,7 @@ export const FloatingActionLayer = styled.div`
   pointer-events: none;
 `;
 
-export const CreateMeetingButton = styled.button`
+export const CreateMeetingButton = styled(Link)`
   ${text1Bold};
   min-height: 42px;
   padding: 12px 20px;
@@ -179,6 +183,7 @@ export const CreateMeetingButton = styled.button`
   border-radius: 20px;
   background: var(--DWU-Burgundy, #782c43);
   color: var(--White, #fafafa);
+  text-decoration: none;
   cursor: pointer;
   pointer-events: auto;
 `;
