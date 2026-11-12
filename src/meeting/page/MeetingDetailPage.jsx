@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import BackButton from '../../components/BackButton';
-import { getMeeting } from '../api/meetingApi';
+import { getMeeting, joinMeeting, leaveMeeting } from '../api/meetingApi';
 import * as S from '../style/StyledMeetingDetail';
 
 const API_BASE_URL =
@@ -77,12 +77,17 @@ export default function MeetingDetailPage() {
   const [meeting, setMeeting] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState('');
+  const [actionErrorMessage, setActionErrorMessage] = useState('');
+  const [isUpdatingParticipation, setIsUpdatingParticipation] =
+    useState(false);
 
   useEffect(() => {
     let isMounted = true;
 
     setIsLoading(true);
     setErrorMessage('');
+    setActionErrorMessage('');
+    setIsUpdatingParticipation(false);
     setMeeting(null);
 
     async function loadMeeting() {
@@ -139,6 +144,53 @@ export default function MeetingDetailPage() {
   const showUnavailableAction =
     !meeting.joined && !meeting.host && !canJoin;
   const showLeaveAction = meeting.joined && !meeting.host;
+
+  const refreshMeeting = async () => {
+    const data = await getMeeting(meetupId);
+
+    if (!data) {
+      throw new Error('모임 정보를 불러오지 못했습니다.');
+    }
+
+    setMeeting(data);
+  };
+
+  const handleJoin = async () => {
+    if (isUpdatingParticipation) {
+      return;
+    }
+
+    try {
+      setIsUpdatingParticipation(true);
+      setActionErrorMessage('');
+      await joinMeeting(meetupId);
+      await refreshMeeting();
+    } catch (error) {
+      setActionErrorMessage(error.message);
+    } finally {
+      setIsUpdatingParticipation(false);
+    }
+  };
+
+  const handleLeave = async () => {
+    if (
+      isUpdatingParticipation ||
+      !window.confirm('모임에서 탈퇴하시겠어요?')
+    ) {
+      return;
+    }
+
+    try {
+      setIsUpdatingParticipation(true);
+      setActionErrorMessage('');
+      await leaveMeeting(meetupId);
+      await refreshMeeting();
+    } catch (error) {
+      setActionErrorMessage(error.message);
+    } finally {
+      setIsUpdatingParticipation(false);
+    }
+  };
 
   return (
     <main className="page-layout">
@@ -222,13 +274,30 @@ export default function MeetingDetailPage() {
             </S.MemberList>
 
             {showLeaveAction && (
-              <S.LeaveButton type="button">모임 탈퇴하기</S.LeaveButton>
+              <S.LeaveButton
+                type="button"
+                disabled={isUpdatingParticipation}
+                onClick={handleLeave}
+              >
+                {isUpdatingParticipation ? '탈퇴 중...' : '모임 탈퇴하기'}
+              </S.LeaveButton>
             )}
           </S.MemberSection>
 
+          {actionErrorMessage && (
+            <S.ActionErrorMessage role="alert">
+              {actionErrorMessage}
+            </S.ActionErrorMessage>
+          )}
+
           {canJoin && (
-            <S.FloatingAction type="button" variant="filled">
-              가입하기
+            <S.FloatingAction
+              type="button"
+              variant="filled"
+              disabled={isUpdatingParticipation}
+              onClick={handleJoin}
+            >
+              {isUpdatingParticipation ? '가입 중...' : '가입하기'}
             </S.FloatingAction>
           )}
 

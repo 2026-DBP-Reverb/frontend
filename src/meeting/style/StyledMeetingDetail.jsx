@@ -235,6 +235,17 @@ export const LeaveButton = styled.button`
   color: var(--Gray, #bdbdbd);
   line-height: normal;
   cursor: pointer;
+
+  &:disabled {
+    cursor: default;
+  }
+`;
+
+export const ActionErrorMessage = styled.p`
+  ${labelText}
+  margin: 0;
+  color: var(--DWU-Burgundy, #782c43);
+  line-height: normal;
 `;
 
 export const FloatingAction = styled(PillButton)`
