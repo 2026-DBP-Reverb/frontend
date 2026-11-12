@@ -62,3 +62,43 @@ export async function updateMeeting(meetupId, meeting) {
 
   return result?.data;
 }
+
+export async function joinMeeting(meetupId) {
+  const response = await fetch(
+    `${API_BASE_URL}/api/meetups/${meetupId}/participants`,
+    {
+      method: 'POST',
+      credentials: 'include',
+    }
+  );
+
+  const result = await response.json().catch(() => null);
+
+  if (!response.ok || result?.success === false) {
+    throw new Error(
+      result?.error?.detail ?? result?.message ?? '모임 참여에 실패했습니다.'
+    );
+  }
+}
+
+export async function leaveMeeting(meetupId) {
+  const response = await fetch(
+    `${API_BASE_URL}/api/meetups/${meetupId}/participants`,
+    {
+      method: 'PATCH',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ status: 'LEFT' }),
+    }
+  );
+
+  const result = await response.json().catch(() => null);
+
+  if (!response.ok || result?.success === false) {
+    throw new Error(
+      result?.error?.detail ?? result?.message ?? '모임 탈퇴에 실패했습니다.'
+    );
+  }
+}
