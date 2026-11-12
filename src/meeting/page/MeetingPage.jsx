@@ -30,19 +30,6 @@ function formatDate(startsAt) {
   }).format(date);
 }
 
-function formatPlace(place) {
-  if (!place?.trim()) {
-    return "장소 미정";
-  }
-
-  const firstRegion = place.trim().split(/\s+/)[0];
-
-  return firstRegion.replace(
-    /(특별자치도|특별자치시|광역시|특별시)$/,
-    ""
-  );
-}
-
 function toMeetingCard(meetup) {
   return {
     id: meetup.meetupId,
@@ -52,7 +39,7 @@ function toMeetingCard(meetup) {
     maxMembers: meetup.capacity,
     date: formatDate(meetup.startsAt),
     tags: [
-      formatPlace(meetup.place),
+      meetup.place?.trim() || "장소 미정",
       CATEGORY_LABELS[meetup.category] ?? meetup.category ?? "기타",
     ],
     joined: meetup.joined,
