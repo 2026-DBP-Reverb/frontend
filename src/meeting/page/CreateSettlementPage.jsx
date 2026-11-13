@@ -259,6 +259,7 @@ function SettlementForm({meetupId, members, currentMemberId, onCancel, onSuccess
           <Meeting.Label htmlFor="settlement-title">정산 제목</Meeting.Label>
           <Meeting.TextInput
             id="settlement-title" name="title" value={form.title}
+            maxLength={60}
             onChange={updateField} placeholder="어떤 정산인지 간단히 설명해주세요" required
           />
         </Meeting.Field>
@@ -286,6 +287,7 @@ function SettlementForm({meetupId, members, currentMemberId, onCancel, onSuccess
           <Meeting.Label htmlFor="settlement-account">정산 계좌</Meeting.Label>
           <Meeting.TextInput
             id="settlement-account" name="account" value={form.account}
+            maxLength={40}
             onChange={updateField} placeholder="OO은행 000-000-000 홍길동" required
           />
         </Meeting.Field>
