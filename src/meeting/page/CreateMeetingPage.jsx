@@ -5,6 +5,7 @@ import {useNavigate} from "react-router-dom";
 import BackButton from "../../components/BackButton";
 import Button from "../../components/Button";
 import {createMeeting} from "../api/meetingApi";
+import {DEFAULT_MEETING_IMAGE_URL} from "../api/meetupApi";
 import * as S from "../style/StyledCreateMeeting";
 
 const CATEGORIES = ["콘서트", "페스티벌", "리스닝", "기타"];
@@ -14,7 +15,6 @@ const CATEGORY_VALUES = {
   리스닝: "LISTENING",
   기타: "OTHER",
 };
-const DEFAULT_MEETING_IMAGE_URL = "/images/Meeting1.svg";
 const MAX_TITLE_BYTES = 200;
 const MAX_PLACE_BYTES = 255;
 const PLACE_FORMAT = /^(?:[가-힣]+도 +)?[가-힣]+시 +\S.*$/;

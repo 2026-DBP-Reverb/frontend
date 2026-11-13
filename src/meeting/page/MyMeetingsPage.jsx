@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import BackButton from '../../components/BackButton';
+import { DEFAULT_MEETING_IMAGE_URL } from '../api/meetupApi';
 import * as S from '../style/StyledMyMeetings';
 
 const meetings = [
@@ -44,7 +45,7 @@ export default function MyMeetingsPage() {
             {meetings.map((meeting) => (
               <S.MeetingItem key={meeting.id}>
                 <S.MeetingImage
-                  src={meeting.imageUrl}
+                  src={meeting.imageUrl ?? DEFAULT_MEETING_IMAGE_URL}
                   alt={`${meeting.title} 모임`}
                 />
 

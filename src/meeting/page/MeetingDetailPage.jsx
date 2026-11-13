@@ -2,12 +2,12 @@ import {useEffect, useState} from "react";
 import {useLocation, useNavigate, useParams} from "react-router-dom";
 import BackButton from "../../components/BackButton";
 import {getMeeting, joinMeeting, leaveMeeting} from "../api/meetingApi";
+import {DEFAULT_MEETING_IMAGE_URL} from "../api/meetupApi";
 import * as S from "../style/StyledMeetingDetail";
 import MeetingSettlementTab from "../components/MeetingSettlementTab";
 
 const API_BASE_URL =
   process.env.REACT_APP_API_BASE_URL ?? "http://localhost:8080";
-const DEFAULT_MEETING_IMAGE_URL = "/images/Meeting1.svg";
 const DEFAULT_PROFILE_IMAGE_URL = "/images/Profile1.svg";
 const CATEGORY_LABELS = {
   CONCERT: "콘서트",
@@ -15,14 +15,6 @@ const CATEGORY_LABELS = {
   LISTENING: "리스닝",
   OTHER: "기타",
 };
-
-function resolveMeetingImageUrl(imageUrl) {
-  if (!imageUrl) {
-    return DEFAULT_MEETING_IMAGE_URL;
-  }
-
-  return imageUrl;
-}
 
 function resolveProfileImageUrl(imageUrl) {
   if (!imageUrl) {
@@ -204,7 +196,7 @@ export default function MeetingDetailPage() {
 
           <S.Header>
             <S.MeetingImage
-              src={resolveMeetingImageUrl(meeting.imageUrl)}
+              src={meeting.imageUrl || DEFAULT_MEETING_IMAGE_URL}
               alt={`${meeting.title} 모임`}
               onError={(event) => {
                 event.currentTarget.onerror = null;
