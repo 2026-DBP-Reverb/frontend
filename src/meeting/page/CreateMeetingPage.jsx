@@ -146,7 +146,7 @@ export default function CreateMeetingPage() {
         startsAt,
       });
 
-      navigate(`/meetings/${meeting.meetupId}`);
+      navigate(`/meetings/${meeting.meetupId}`, {replace: true});
     } catch (error) {
       setErrorMessage(error.message);
     } finally {

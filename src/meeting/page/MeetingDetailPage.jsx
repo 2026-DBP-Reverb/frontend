@@ -120,7 +120,7 @@ export default function MeetingDetailPage() {
       <main className="page-layout">
         <div className="page-content">
           <S.Container>
-            <BackButton onClick={() => navigate(-1)}/>
+            <BackButton onClick={() => navigate("/meetings", {replace: true})}/>
             <S.StatusMessage role={errorMessage ? "alert" : "status"}>
               {errorMessage || "모임 정보를 불러오는 중..."}
             </S.StatusMessage>
@@ -192,7 +192,7 @@ export default function MeetingDetailPage() {
     <main className="page-layout">
       <div className="page-content">
         <S.Container>
-          <BackButton onClick={() => navigate(-1)}/>
+          <BackButton onClick={() => navigate("/meetings", {replace: true})}/>
 
           <S.Header>
             <S.MeetingImage
