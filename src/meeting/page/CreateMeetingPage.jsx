@@ -117,7 +117,7 @@ export default function CreateMeetingPage() {
   return (
     <main className="page-layout page-layout--with-button">
       <div className="page-content">
-        <S.Form onSubmit={handleSubmit}>
+        <S.ScrollableForm onSubmit={handleSubmit}>
           <BackButton onClick={() => navigate(-1)} />
 
           <S.Fields>
@@ -259,7 +259,7 @@ export default function CreateMeetingPage() {
           >
             {isSubmitting ? '개설 중...' : '이대로 모임 개설하기'}
           </S.SubmitButton>
-        </S.Form>
+        </S.ScrollableForm>
       </div>
     </main>
   );

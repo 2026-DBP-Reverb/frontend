@@ -23,6 +23,16 @@ export const Fields = styled.div`
   margin-top: 30px;
 `;
 
+export const ScrollableForm = styled(Form)`
+  margin-top: 0;
+  padding-block: 70px 4px;
+  overflow-y: auto;
+
+  ${Fields} {
+    flex: none;
+  }
+`;
+
 export const ImageTitleRow = styled.div`
   display: flex;
   align-items: flex-start;
