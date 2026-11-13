@@ -177,10 +177,14 @@ export const FloatingActionLayer = styled.div`
 
 export const CreateMeetingButton = styled(Link)`
   ${text1Bold};
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   min-height: 42px;
-  padding: 12px 20px;
+  padding: 0 20px;
+  line-height: 1.4;
   border: 0;
-  border-radius: 20px;
+  border-radius: 999px;
   background: var(--DWU-Burgundy, #782c43);
   color: var(--White, #fafafa);
   text-decoration: none;
