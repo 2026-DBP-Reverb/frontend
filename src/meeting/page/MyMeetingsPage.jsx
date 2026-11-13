@@ -1,12 +1,13 @@
 import { useNavigate } from 'react-router-dom';
 import BackButton from '../../components/BackButton';
+import { DEFAULT_MEETING_IMAGE_URL } from '../api/meetupApi';
 import * as S from '../style/StyledMyMeetings';
 
 const meetings = [
   {
     id: 1,
     title: '부산락페 동행해요',
-    imageUrl: '/images/ManagedMeetingCover.png',
+    imageUrl: null,
     currentMembers: 2,
     capacity: 4,
     startsAt: '2026년 10월 2일',
@@ -14,7 +15,7 @@ const meetings = [
   {
     id: 2,
     title: '부산락페 동행해요',
-    imageUrl: '/images/ManagedMeetingCover.png',
+    imageUrl: null,
     currentMembers: 2,
     capacity: 4,
     startsAt: '2026년 10월 2일',
@@ -22,7 +23,7 @@ const meetings = [
   {
     id: 3,
     title: '부산락페 동행해요',
-    imageUrl: '/images/ManagedMeetingCover.png',
+    imageUrl: null,
     currentMembers: 2,
     capacity: 4,
     startsAt: '2026년 10월 2일',
@@ -44,7 +45,7 @@ export default function MyMeetingsPage() {
             {meetings.map((meeting) => (
               <S.MeetingItem key={meeting.id}>
                 <S.MeetingImage
-                  src={meeting.imageUrl}
+                  src={meeting.imageUrl || DEFAULT_MEETING_IMAGE_URL}
                   alt={`${meeting.title} 모임`}
                 />
 

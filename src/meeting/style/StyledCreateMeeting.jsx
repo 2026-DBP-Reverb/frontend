@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
-import { text1 } from '../../styles/typography';
+import { labelText, text1 } from '../../styles/typography';
 
 export const Form = styled.form`
   width: 100%;
@@ -21,6 +21,16 @@ export const Fields = styled.div`
   flex-direction: column;
   gap: 12px;
   margin-top: 30px;
+`;
+
+export const ScrollableForm = styled(Form)`
+  margin-top: 0;
+  padding-block: 70px 4px;
+  overflow-y: auto;
+
+  ${Fields} {
+    flex: none;
+  }
 `;
 
 export const ImageTitleRow = styled.div`
@@ -90,6 +100,13 @@ export const Label = styled.label`
   min-height: 17px;
   padding-inline: 5px;
   color: var(--Slate-Blue, #48535c);
+`;
+
+export const FieldError = styled.p`
+  ${labelText}
+  margin: 0;
+  padding-inline: 5px;
+  color: var(--Error, #9b2c43);
 `;
 
 const controlStyles = css`
@@ -210,9 +227,83 @@ export const ErrorMessage = styled.p`
   text-align: center;
 `;
 
+export const CreateMeetingErrorMessage = styled(ErrorMessage)`
+  ${labelText}
+`;
+
 export const StatusMessage = styled.p`
   ${text1}
   margin: 40px 0 0;
   color: var(--Slate-Blue, #48535c);
   text-align: center;
+`;
+
+export const DateTimeDialog = styled.dialog`
+  width: min(372px, calc(100% - 24px));
+  max-height: calc(100% - 24px);
+  padding: 20px;
+  border: 0;
+  border-radius: 14px;
+  background: var(--White, #fafafa);
+  color: var(--Black, #17171b);
+  text-align: center;
+
+  &::backdrop {
+    background: rgb(23 23 27 / 45%);
+  }
+
+  h2 {
+    margin: 0 0 12px;
+    font-size: 18px;
+  }
+
+  .react-datepicker__day--selected {
+    background: var(--DWU-Burgundy, #782c43);
+  }
+`;
+
+export const TimeOptions = styled.fieldset`
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 6px;
+  min-width: 0;
+  margin: 8px 0 0;
+  padding: 0;
+  border: 0;
+
+  legend {
+    margin-bottom: 6px;
+    padding: 0;
+    text-align: left;
+    font-size: 14px;
+    font-weight: 600;
+  }
+`;
+
+export const PeriodOptions = styled(TimeOptions)`
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+`;
+
+export const TimeOption = styled.button`
+  min-height: 36px;
+  padding: 0;
+  border: 1px solid var(--Gray, #bdbdbd);
+  border-radius: 6px;
+  background: transparent;
+  color: inherit;
+  font-size: 13px;
+  cursor: pointer;
+
+  &[aria-pressed='true'] {
+    border-color: var(--DWU-Burgundy, #782c43);
+    background: var(--DWU-Burgundy, #782c43);
+    color: #fff;
+  }
+`;
+
+export const DateTimeActions = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 16px;
 `;

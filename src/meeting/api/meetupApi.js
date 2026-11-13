@@ -20,9 +20,11 @@ export async function getMeetups() {
   return Array.isArray(result?.data) ? result.data : [];
 }
 
+export const DEFAULT_MEETING_IMAGE_URL = "/images/MeetingDefaultImage.png";
+
 export function resolveMeetupImageUrl(imageUrl) {
   if (!imageUrl) {
-    return "/images/Meeting1.svg";
+    return DEFAULT_MEETING_IMAGE_URL;
   }
 
   if (/^https?:\/\//i.test(imageUrl)) {
