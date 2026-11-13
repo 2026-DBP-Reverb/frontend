@@ -1,12 +1,6 @@
-import styled from 'styled-components';
-import PillButton from '../../components/PillButton';
-import {
-  labelText,
-  text1,
-  text1Bold,
-  text2,
-  title3,
-} from '../../styles/typography';
+import styled from "styled-components";
+import PillButton from "../../components/PillButton";
+import {labelText, text1, text1Bold, text2, title3,} from "../../styles/typography";
 
 export const Container = styled.div`
   position: relative;
@@ -71,20 +65,20 @@ export const CategoryTag = styled(Tag)`
 `;
 
 export const RecruitmentTag = styled(Tag)`
-  border-color: ${({ $variant }) =>
-    $variant === 'open'
-      ? 'var(--DWU-Burgundy, #782c43)'
-      : $variant === 'completed'
-      ? 'var(--Gray, #bdbdbd)'
-      : 'var(--Slate-Blue, #48535c)'};
-  background: ${({ $variant }) =>
-    $variant === 'completed' ? 'var(--Gray, #bdbdbd)' : 'transparent'};
-  color: ${({ $variant }) =>
-    $variant === 'open'
-      ? 'var(--DWU-Burgundy, #782c43)'
-      : $variant === 'completed'
-      ? 'var(--White, #fafafa)'
-      : 'var(--Slate-Blue, #48535c)'};
+  border-color: ${({$variant}) =>
+    $variant === "open"
+      ? "var(--DWU-Burgundy, #782c43)"
+      : $variant === "completed"
+        ? "var(--Gray, #bdbdbd)"
+        : "var(--Slate-Blue, #48535c)"};
+  background: ${({$variant}) =>
+    $variant === "completed" ? "var(--Gray, #bdbdbd)" : "transparent"};
+  color: ${({$variant}) =>
+    $variant === "open"
+      ? "var(--DWU-Burgundy, #782c43)"
+      : $variant === "completed"
+        ? "var(--White, #fafafa)"
+        : "var(--Slate-Blue, #48535c)"};
 `;
 
 export const MetaList = styled.div`
@@ -140,12 +134,11 @@ export const Tab = styled.button`
   align-items: center;
   justify-content: center;
   border: 0;
-  border-bottom: 1px solid
-    ${({ $active }) =>
-      $active ? 'var(--DWU-Burgundy, #782c43)' : 'var(--Gray, #bdbdbd)'};
+  border-bottom: 1px solid ${({$active}) =>
+    $active ? "var(--DWU-Burgundy, #782c43)" : "var(--Gray, #bdbdbd)"};
   background: transparent;
-  color: ${({ $active }) =>
-    $active ? 'var(--DWU-Burgundy, #782c43)' : 'var(--Gray, #bdbdbd)'};
+  color: ${({$active}) =>
+    $active ? "var(--DWU-Burgundy, #782c43)" : "var(--Gray, #bdbdbd)"};
   line-height: normal;
 `;
 
@@ -268,4 +261,104 @@ export const StatusMessage = styled.p`
   padding-top: 40px;
   color: var(--Gray, #bdbdbd);
   text-align: center;
+`;
+
+export const SettlementList = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+  align-self: stretch;
+`;
+
+export const SettlementMessage = styled.p`
+  ${text2}
+  width: 100%;
+  margin: 0;
+  color: var(--Gray);
+  text-align: center;
+  line-height: normal;
+`;
+
+export const SettlementItems = styled.ul`
+  display: grid;
+  gap: 20px;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+`;
+
+export const SettlementItem = styled.li`
+  min-width: 0;
+  border-bottom: 1px solid var(--Gray);
+`;
+
+export const SettlementItemButton = styled.button`
+  display: grid;
+  width: 100%;
+  gap: 10px;
+  padding: 0 12px 20px;
+  border: 0;
+  background: transparent;
+  color: ${({$completed}) => $completed ? "var(--Gray)" : "var(--Black)"};
+  text-align: left;
+  cursor: pointer;
+`;
+
+export const SettlementItemHeading = styled.span`
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 6px;
+`;
+
+export const SettlementTitle = styled.span`
+  ${text1}
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+`;
+
+export const SettlementAmount = styled.strong`
+  ${text2}
+  flex-shrink: 0;
+  font-weight: 700;
+
+  span {
+    ${text1}
+  }
+`;
+
+export const SettlementDetails = styled.span`
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin: 0 -4px;
+  color: ${({$completed}) => $completed ? "inherit" : "var(--Slate-Blue)"};
+`;
+
+export const SettlementDetail = styled.span`
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 8px;
+`;
+
+export const SettlementDetailLabel = styled.span`
+  ${labelText}
+  flex-shrink: 0;
+  padding: 4px 8px;
+  border: 0.8px solid currentColor;
+  border-radius: 4px;
+  line-height: normal;
+`;
+
+export const SettlementDetailValue = styled.span`
+  ${text1}
+  min-width: 0;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `;
