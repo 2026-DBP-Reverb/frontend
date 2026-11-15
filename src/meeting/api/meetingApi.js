@@ -42,6 +42,25 @@ export async function getMeeting(meetupId) {
   return result?.data;
 }
 
+export async function getHostedMeetups({ signal } = {}) {
+  const response = await fetch(`${API_BASE_URL}/api/meetups/hosted`, {
+    credentials: 'include',
+    signal,
+  });
+
+  const result = await response.json().catch(() => null);
+
+  if (!response.ok || result?.success === false || !Array.isArray(result?.data)) {
+    throw new Error(
+      result?.error?.detail ??
+        result?.message ??
+        '내가 개설한 모임을 불러오지 못했습니다.'
+    );
+  }
+
+  return result.data;
+}
+
 export async function updateMeeting(meetupId, meeting) {
   const response = await fetch(`${API_BASE_URL}/api/meetups/${meetupId}`, {
     method: 'PUT',
@@ -61,6 +80,21 @@ export async function updateMeeting(meetupId, meeting) {
   }
 
   return result?.data;
+}
+
+export async function deleteMeeting(meetupId) {
+  const response = await fetch(`${API_BASE_URL}/api/meetups/${meetupId}`, {
+    method: 'DELETE',
+    credentials: 'include',
+  });
+
+  const result = await response.json().catch(() => null);
+
+  if (!response.ok || result?.success === false) {
+    throw new Error(
+      result?.error?.detail ?? result?.message ?? '모임 삭제에 실패했습니다.'
+    );
+  }
 }
 
 export async function joinMeeting(meetupId) {

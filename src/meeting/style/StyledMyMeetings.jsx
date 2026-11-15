@@ -27,6 +27,18 @@ export const MeetingList = styled.ul`
   list-style: none;
 `;
 
+export const StatusMessage = styled.p`
+  ${text1}
+  width: 100%;
+  margin: 0;
+  color: var(--Gray, #bdbdbd);
+  text-align: center;
+`;
+
+export const ErrorMessage = styled(StatusMessage)`
+  color: var(--DWU-Burgundy, #782c43);
+`;
+
 export const MeetingItem = styled.li`
   display: flex;
   width: 100%;
@@ -114,4 +126,9 @@ export const ActionButton = styled.button`
 export const DeleteButton = styled(ActionButton)`
   border-color: var(--DWU-Burgundy, #782c43);
   color: var(--DWU-Burgundy, #782c43);
+
+  &:disabled {
+    cursor: default;
+    opacity: 0.6;
+  }
 `;
