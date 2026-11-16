@@ -136,3 +136,25 @@ export async function leaveMeeting(meetupId) {
     );
   }
 }
+
+export async function kickMeetingMember(meetupId, memberId) {
+  const response = await fetch(
+    `${API_BASE_URL}/api/meetups/${meetupId}/participants/${memberId}`,
+    {
+      method: 'PATCH',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ status: 'KICKED' }),
+    }
+  );
+
+  const result = await response.json().catch(() => null);
+
+  if (!response.ok || result?.success === false) {
+    throw new Error(
+      result?.error?.detail ?? result?.message ?? '멤버 강퇴에 실패했습니다.'
+    );
+  }
+}
