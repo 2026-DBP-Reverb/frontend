@@ -79,6 +79,11 @@ export const KickButton = styled.button`
   color: var(--Slate-Blue, #48535c);
   line-height: normal;
   cursor: pointer;
+
+  &:disabled {
+    cursor: default;
+    opacity: 0.6;
+  }
 `;
 
 export const StatusMessage = styled.p`
@@ -86,5 +91,12 @@ export const StatusMessage = styled.p`
   margin: 0;
   padding-top: 40px;
   color: var(--Gray, #bdbdbd);
+  text-align: center;
+`;
+
+export const ErrorMessage = styled.p`
+  ${text2}
+  margin: 0;
+  color: var(--DWU-Burgundy, #782c43);
   text-align: center;
 `;

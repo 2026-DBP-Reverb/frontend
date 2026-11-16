@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import BackButton from '../../components/BackButton';
-import { getMeeting } from '../api/meetingApi';
+import { getMeeting, kickMeetingMember } from '../api/meetingApi';
 import * as S from '../style/StyledMeetingMembers';
 
 const API_BASE_URL =
@@ -31,9 +31,17 @@ export default function MeetingMembersPage() {
   const [members, setMembers] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState('');
+  const [actionErrorMessage, setActionErrorMessage] = useState('');
+  const [kickingMemberId, setKickingMemberId] = useState(null);
 
   useEffect(() => {
     let isMounted = true;
+
+    setMembers([]);
+    setIsLoading(true);
+    setErrorMessage('');
+    setActionErrorMessage('');
+    setKickingMemberId(null);
 
     async function loadMembers() {
       try {
@@ -72,6 +80,29 @@ export default function MeetingMembersPage() {
     };
   }, [meetupId]);
 
+  async function handleKick(member) {
+    if (
+      kickingMemberId !== null ||
+      !window.confirm(`'${member.nickname}' 멤버를 강퇴하시겠어요?`)
+    ) {
+      return;
+    }
+
+    setKickingMemberId(member.memberId);
+    setActionErrorMessage('');
+
+    try {
+      await kickMeetingMember(meetupId, member.memberId);
+      setMembers((previous) =>
+        previous.filter(({ memberId }) => memberId !== member.memberId)
+      );
+    } catch (error) {
+      setActionErrorMessage(error.message);
+    } finally {
+      setKickingMemberId(null);
+    }
+  }
+
   return (
     <main className="page-layout">
       <div className="page-content">
@@ -91,6 +122,12 @@ export default function MeetingMembersPage() {
               <S.StatusMessage role="alert">{errorMessage}</S.StatusMessage>
             )}
 
+            {!isLoading && !errorMessage && actionErrorMessage && (
+              <S.ErrorMessage role="alert">
+                {actionErrorMessage}
+              </S.ErrorMessage>
+            )}
+
             {!isLoading && !errorMessage && members.length === 0 && (
               <S.StatusMessage>참여 중인 멤버가 없습니다.</S.StatusMessage>
             )}
@@ -108,8 +145,12 @@ export default function MeetingMembersPage() {
                     <S.KickButton
                       type="button"
                       aria-label={`${member.nickname} 강퇴`}
+                      disabled={kickingMemberId !== null}
+                      onClick={() => handleKick(member)}
                     >
-                      강퇴
+                      {kickingMemberId === member.memberId
+                        ? '강퇴 중...'
+                        : '강퇴'}
                     </S.KickButton>
                   </S.MemberRow>
                 ))}
