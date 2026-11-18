@@ -1,6 +1,8 @@
 import styled from "styled-components";
+// import { Link } from "react-router-dom";
 import { text1 } from "../styles/typography";
 
+// 상세 페이지 연결 확정 후 styled(Link)로 다시 변경합니다.
 const Card = styled.div`
   position: relative;
   flex: 0 0 200px;
@@ -17,6 +19,8 @@ const Card = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  color: inherit;
+  text-decoration: none;
 `;
 
 const CardImage = styled.img`
@@ -25,6 +29,8 @@ const CardImage = styled.img`
   display: block;
   object-fit: cover;
   border-radius: 8px;
+  user-select: none;
+  pointer-events: none;
 `;
 
 const CardInfo = styled.div`
@@ -62,8 +68,9 @@ export default function MeetingCard({
                                       maxMembers,
                                     }) {
   return (
+    // 상세 페이지 연결 논의 후: <Card to={`/meetings/${id}`}> 형태로 연결합니다.
     <Card>
-      <CardImage src={image}/>
+      <CardImage src={image} alt="" draggable="false"/>
       <CardInfo>
         <Title>{title}</Title>
         <MemberCount>

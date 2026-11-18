@@ -2,7 +2,9 @@ import { useRef } from 'react';
 
 export default function useDragScroll() {
   const dragState = useRef({
+    isPointerDown: false,
     isDragging: false,
+    didDrag: false,
     startX: 0,
     scrollLeft: 0,
   });
@@ -12,25 +14,38 @@ export default function useDragScroll() {
       return;
     }
 
-    event.preventDefault();
-    event.currentTarget.setPointerCapture(event.pointerId);
     dragState.current = {
-      isDragging: true,
+      isPointerDown: true,
+      isDragging: false,
+      didDrag: false,
       startX: event.clientX,
       scrollLeft: event.currentTarget.scrollLeft,
     };
   };
 
   const handlePointerMove = (event) => {
-    if (!dragState.current.isDragging) {
+    if (!dragState.current.isPointerDown) {
       return;
     }
 
     const distance = event.clientX - dragState.current.startX;
+
+    if (!dragState.current.isDragging && Math.abs(distance) < 3) {
+      return;
+    }
+
+    if (!dragState.current.isDragging) {
+      dragState.current.isDragging = true;
+      dragState.current.didDrag = true;
+      event.currentTarget.setPointerCapture(event.pointerId);
+    }
+
+    event.preventDefault();
     event.currentTarget.scrollLeft = dragState.current.scrollLeft - distance;
   };
 
   const handlePointerEnd = (event) => {
+    dragState.current.isPointerDown = false;
     dragState.current.isDragging = false;
 
     if (event.currentTarget.hasPointerCapture(event.pointerId)) {
@@ -38,10 +53,21 @@ export default function useDragScroll() {
     }
   };
 
+  const handleClickCapture = (event) => {
+    if (!dragState.current.didDrag) {
+      return;
+    }
+
+    event.preventDefault();
+    event.stopPropagation();
+    dragState.current.didDrag = false;
+  };
+
   return {
     onPointerDown: handlePointerDown,
     onPointerMove: handlePointerMove,
     onPointerUp: handlePointerEnd,
     onPointerCancel: handlePointerEnd,
+    onClickCapture: handleClickCapture,
   };
 }

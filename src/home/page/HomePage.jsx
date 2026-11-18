@@ -4,12 +4,22 @@ import MeetingBanner from '../../components/MeetingBanner';
 import UserCard from '../../components/UserCard';
 import MeetingCard from '../../components/MeetingCard';
 import { getMyArtists } from '../../musictaste/api/musicTasteApi';
+import { resolveMeetupImageUrl } from '../../meeting/api/meetupApi';
+import {
+  getRecentHomeMeetups,
+  getRecentHomeMembers,
+} from '../api/homeApi';
 import useDragScroll from '../hooks/useDragScroll';
 import * as H from '../style/StyledHome';
 
 export default function HomePage() {
   const meetingDragHandlers = useDragScroll();
   const [hasMusicPreference, setHasMusicPreference] = useState(true);
+  const [mates, setMates] = useState([]);
+  const [meetings, setMeetings] = useState([]);
+  const [isHomeLoading, setIsHomeLoading] = useState(true);
+  const [membersError, setMembersError] = useState('');
+  const [meetupsError, setMeetupsError] = useState('');
 
   useEffect(() => {
     let isMounted = true;
@@ -33,45 +43,65 @@ export default function HomePage() {
     };
   }, []);
 
-  const mates = [
-    {
-      id: 1,
-      name: "박솜솜",
-      profileImage: `${process.env.PUBLIC_URL}/images/Profile1.svg`,
-      favoriteArtists: ["YOASOBI", "TWS", "RIIZE"],
-      matchRate: 95,
-    },
-    {
-      id: 2,
-      name: "박솜솜",
-      profileImage: `${process.env.PUBLIC_URL}/images/Profile2.svg`,
-      favoriteArtists: ["YOASOBI", "TWS", "RIIZE"],
-      matchRate: 95,
-    },
-    {
-      id: 3,
-      name: "박솜솜",
-      profileImage: `${process.env.PUBLIC_URL}/images/Profile2.svg`,
-      favoriteArtists: ["YOASOBI", "TWS", "RIIZE"],
-      matchRate: 95,
-    },
-  ];
-  const meetings = [
-    {
-      id: 1,
-      title: "부산락페 동행",
-      image: `${process.env.PUBLIC_URL}/images/Meeting1.svg`,
-      currentMembers: 2,
-      maxMembers: 4,
-    },
-    {
-      id: 2,
-      title: "LP바 동행 긴테스트 가나다라마",
-      image: `${process.env.PUBLIC_URL}/images/Meeting2.svg`,
-      currentMembers: 12,
-      maxMembers: 123,
-    },
-  ];
+  useEffect(() => {
+    let isMounted = true;
+
+    async function loadHomeData() {
+      setIsHomeLoading(true);
+      setMembersError('');
+      setMeetupsError('');
+
+      const [membersResult, meetupsResult] = await Promise.allSettled([
+        getRecentHomeMembers(),
+        getRecentHomeMeetups(),
+      ]);
+
+      if (!isMounted) {
+        return;
+      }
+
+      if (membersResult.status === 'fulfilled') {
+        setMates(
+          membersResult.value.map((member) => ({
+            id: member.memberId,
+            name: member.nickname,
+            profileImage:
+              member.profileImageUrl ||
+              `${process.env.PUBLIC_URL}/images/Profile1.svg`,
+            favoriteArtists: Array.isArray(member.hashtags)
+              ? member.hashtags
+              : [],
+            matchRate: member.matchRate,
+          }))
+        );
+      } else {
+        setMembersError(membersResult.reason.message);
+      }
+
+      if (meetupsResult.status === 'fulfilled') {
+        setMeetings(
+          meetupsResult.value.map((meeting) => ({
+            id: meeting.meetupId,
+            title: meeting.title,
+            image: resolveMeetupImageUrl(meeting.imageUrl),
+            currentMembers: meeting.participantCount,
+            maxMembers: meeting.capacity,
+          }))
+        );
+      } else {
+        setMeetupsError(meetupsResult.reason.message);
+      }
+
+      setIsHomeLoading(false);
+    }
+
+    loadHomeData();
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
   return (
     <main className="page-layout page-layout--with-navigation">
       <div className="page-content">
@@ -81,7 +111,14 @@ export default function HomePage() {
         </H.Header>
         <MeetingBanner hasMusicPreference={hasMusicPreference} />
         <H.MateList>
-          {mates.map((mate) => (
+          {isHomeLoading && <H.StateMessage>회원 정보를 불러오는 중...</H.StateMessage>}
+          {!isHomeLoading && membersError && (
+            <H.StateMessage role="alert">{membersError}</H.StateMessage>
+          )}
+          {!isHomeLoading && !membersError && mates.length === 0 && (
+            <H.StateMessage>최근 가입한 회원이 없어요.</H.StateMessage>
+          )}
+          {!isHomeLoading && !membersError && mates.map((mate) => (
             <UserCard key={mate.id} {...mate} />
           ))}
         </H.MateList>
@@ -89,7 +126,14 @@ export default function HomePage() {
           <H.FindAccent>음악 모임</H.FindAccent>을 둘러봐요
         </H.FindTitle>
         <H.MeetingList {...meetingDragHandlers}>
-          {meetings.map((meeting) => (
+          {isHomeLoading && <H.StateMessage>모임을 불러오는 중...</H.StateMessage>}
+          {!isHomeLoading && meetupsError && (
+            <H.StateMessage role="alert">{meetupsError}</H.StateMessage>
+          )}
+          {!isHomeLoading && !meetupsError && meetings.length === 0 && (
+            <H.StateMessage>최근 등록된 모임이 없어요.</H.StateMessage>
+          )}
+          {!isHomeLoading && !meetupsError && meetings.map((meeting) => (
             <MeetingCard key={meeting.id} {...meeting} />
           ))}
         </H.MeetingList>
