@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { title2, title3 } from "../../styles/typography";
+import { text1, title2, title3 } from "../../styles/typography";
 
 export const Header = styled.div`
   ${title2}
@@ -44,7 +44,23 @@ export const MeetingList = styled.div`
   overflow-x: auto;
 
   padding-right: 15px;
+  cursor: grab;
+  user-select: none;
+
+  &:active {
+    cursor: grabbing;
+  }
 
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
+`;
+
+export const StateMessage = styled.p`
+  ${text1};
+  grid-column: 1 / -1;
+  width: 100%;
+  margin: 0;
+  padding: 20px 0;
+  color: var(--Slate-Blue, #48535c);
+  text-align: center;
 `;
