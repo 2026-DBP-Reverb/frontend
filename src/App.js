@@ -12,6 +12,7 @@ import SelectPlaylist from "./musictaste/page/SelectPlaylist";
 import CreateMeetingPage from "./meeting/page/CreateMeetingPage";
 import EditMeetingPage from "./meeting/page/EditMeetingPage";
 import CreateSettlementPage from "./meeting/page/CreateSettlementPage";
+import SettlementDetailPage from "./meeting/page/SettlementDetailPage";
 import MeetingDetailPage from "./meeting/page/MeetingDetailPage";
 import MeetingMembersPage from "./meeting/page/MeetingMembersPage";
 import MyMeetingsPage from "./meeting/page/MyMeetingsPage";
@@ -43,6 +44,7 @@ function App() {
             <Route path="/meetings/:meetupId/settlements/new" element={<CreateSettlementPage/>}>
               <Route path="members" element={null}/>
             </Route>
+            <Route path="/meetings/:meetupId/settlements/:settlementId" element={<SettlementDetailPage/>}/>
             <Route path="/meetings/:meetupId/edit" element={<EditMeetingPage/>}/>
             <Route path="/meetings/:meetupId/members" element={<MeetingMembersPage/>}/>
             <Route path="/mypage/meetings" element={<MyMeetingsPage/>}/>
