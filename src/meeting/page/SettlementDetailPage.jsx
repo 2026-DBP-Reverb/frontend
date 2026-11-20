@@ -143,8 +143,10 @@ export default function SettlementDetailPage() {
                             key={share.memberId}
                             $muted={share.memberId === settlement.paidByMemberId || share.status === "CONFIRMED"}
                         >
-                            <S.MemberProfile src={share.profileImageUrl} alt=""/>
-                            <S.MemberNickname>{share.nickname}</S.MemberNickname>
+                            <S.MemberInfo>
+                                <S.MemberProfile src={share.profileImageUrl} alt=""/>
+                                <S.MemberNickname>{share.nickname}</S.MemberNickname>
+                            </S.MemberInfo>
                             {renderBadge(share)}
                             <S.MemberAmount>{won.format(share.amount)}<span>원</span></S.MemberAmount>
                         </S.MemberRow>
