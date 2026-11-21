@@ -300,7 +300,13 @@ export default function MeetingDetailPage() {
               )}
             </>
           ) : meeting.joined || meeting.host ? (
-            <MeetingSettlementTab key={meetupId} meetupId={meetupId} />
+              <MeetingSettlementTab
+                  key={meetupId}
+                  meetupId={meetupId}
+                  onSettlementClick={(settlementId) =>
+                      navigate(`/meetings/${meetupId}/settlements/${settlementId}`)   // 클릭한 정산의 상세 페이지로 이동
+                  }
+              />
           ) : (
             <S.SettlementMessage>모임 멤버만 볼 수 있어요</S.SettlementMessage>
           )}
