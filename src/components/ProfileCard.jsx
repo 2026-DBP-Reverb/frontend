@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { text1, title2 } from "../styles/typography";
 import Button from "./Button";
 import { useNavigate } from "react-router-dom";
+import BaseProfileImage from './ProfileImage';
 
 const Card = styled.div`
   display: flex;
@@ -11,11 +12,13 @@ const Card = styled.div`
   gap: 20px;
 `;
 
-const ProfileImage = styled.img`
+const ProfileImage = styled(BaseProfileImage)`
   width: 120px;
   height: 120px;
   aspect-ratio: 1/1;
   border-radius: 65536px;
+  object-fit: cover;
+  object-position: center;
 `;
 
 const Info = styled.div`

@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { title3, text2, labelText } from "../../styles/typography";
+import BaseProfileImage from '../../components/ProfileImage';
 
 export const Container = styled.div`
   display: flex;
@@ -31,7 +32,7 @@ export const Row = styled.div`
   border-bottom: 0.5px solid var(--Gray, #bdbdbd);
 `;
 
-export const Avatar = styled.img`
+export const Avatar = styled(BaseProfileImage)`
   width: 40px;
   height: 40px;
   flex-shrink: 0;

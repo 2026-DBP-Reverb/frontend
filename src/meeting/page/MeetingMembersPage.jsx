@@ -4,26 +4,8 @@ import BackButton from '../../components/BackButton';
 import { getMeeting, kickMeetingMember } from '../api/meetingApi';
 import * as S from '../style/StyledMeetingMembers';
 
-const API_BASE_URL =
-  process.env.REACT_APP_API_BASE_URL ?? 'http://localhost:8080';
-const DEFAULT_PROFILE_IMAGE_URL = '/images/Profile1.svg';
 
-function resolveProfileImageUrl(imageUrl) {
-  if (!imageUrl) {
-    return DEFAULT_PROFILE_IMAGE_URL;
-  }
 
-  if (/^https?:\/\//i.test(imageUrl)) {
-    return imageUrl;
-  }
-
-  return new URL(imageUrl, API_BASE_URL).toString();
-}
-
-function handleProfileImageError(event) {
-  event.currentTarget.onerror = null;
-  event.currentTarget.src = DEFAULT_PROFILE_IMAGE_URL;
-}
 
 export default function MeetingMembersPage() {
   const navigate = useNavigate();
@@ -137,9 +119,8 @@ export default function MeetingMembersPage() {
                 {members.map((member) => (
                   <S.MemberRow key={member.memberId}>
                     <S.ProfileImage
-                      src={resolveProfileImageUrl(member.profileImageUrl)}
+                      src={member.profileImageUrl}
                       alt={`${member.nickname} 프로필`}
-                      onError={handleProfileImageError}
                     />
                     <S.Nickname>{member.nickname}</S.Nickname>
                     <S.KickButton

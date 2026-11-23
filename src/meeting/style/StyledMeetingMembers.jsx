@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { labelText, text2, title3 } from '../../styles/typography';
+import BaseProfileImage from '../../components/ProfileImage';
 
 export const Container = styled.div`
   display: flex;
@@ -46,7 +47,7 @@ export const MemberRow = styled.li`
   border-bottom: 0.5px solid var(--Gray, #bdbdbd);
 `;
 
-export const ProfileImage = styled.img`
+export const ProfileImage = styled(BaseProfileImage)`
   display: block;
   width: 40px;
   height: 40px;

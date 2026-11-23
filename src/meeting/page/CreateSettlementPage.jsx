@@ -12,9 +12,6 @@ import * as S from "../style/StyledCreateSettlement";
 import * as Members from "../style/StyledMeetingMembers";
 
 const MAX_AMOUNT = 2147483647;
-const API_BASE_URL =
-  process.env.REACT_APP_API_BASE_URL ?? "http://localhost:8080";
-const DEFAULT_AVATAR = "/images/Profile1.svg";
 const won = new Intl.NumberFormat("ko-KR");
 
 function formatAmountInput(value) {
@@ -320,9 +317,8 @@ function SettlementForm({meetupId, members, currentMemberId, onCancel, onSuccess
             {selectedMembers.map(({memberId, nickname, profileImageUrl}, index) => (
               <S.MemberRow key={memberId}>
                 <S.Avatar
-                  src={resolveAvatar(profileImageUrl)}
+                  src={profileImageUrl}
                   alt=""
-                  onError={handleAvatarError}
                 />
                 <S.MemberName>{nickname}{memberId === currentMemberId ? " (나)" : ""}</S.MemberName>
                 {splitMethod === "EQUAL" ? (
@@ -363,16 +359,6 @@ function SettlementForm({meetupId, members, currentMemberId, onCancel, onSuccess
   );
 }
 
-function resolveAvatar(profileImageUrl) {
-  return profileImageUrl ? new URL(profileImageUrl, API_BASE_URL).href : DEFAULT_AVATAR;
-}
-
-function handleAvatarError(event) {
-  if (event.currentTarget.getAttribute("src") !== DEFAULT_AVATAR) {
-    event.currentTarget.src = DEFAULT_AVATAR;
-  }
-}
-
 function SettlementMemberPicker({members, onBack, onConfirm}) {
   const [pendingIds, setPendingIds] = useState([]);
 
@@ -396,9 +382,8 @@ function SettlementMemberPicker({members, onBack, onConfirm}) {
               return (
                 <Members.MemberRow key={memberId}>
                   <Members.ProfileImage
-                    src={resolveAvatar(profileImageUrl)}
+                    src={profileImageUrl}
                     alt=""
-                    onError={handleAvatarError}
                   />
                   <Members.Nickname>{nickname}</Members.Nickname>
                   <S.MemberToggle

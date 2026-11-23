@@ -1,5 +1,6 @@
 import styled, {css} from "styled-components";
 import {labelText, text1, text1Bold, text2, title2} from "../../styles/typography";
+import BaseProfileImage from '../../components/ProfileImage';
 
 // 제목 + 총액 (피그마: 돌아가기 아래 30px, 제목-총액 간격 5px, 좌측 5px)
 export const Header = styled.header`
@@ -56,7 +57,7 @@ export const InfoValue = styled.dd`
   text-overflow: ellipsis;
 `;
 
-export const SmallProfile = styled.img`
+export const SmallProfile = styled(BaseProfileImage)`
   width: 20px;
   height: 20px;
   flex-shrink: 0;
@@ -104,7 +105,7 @@ export const MemberInfo = styled.div`
   min-width: 0;
 `;
 
-export const MemberProfile = styled.img`
+export const MemberProfile = styled(BaseProfileImage)`
   width: 30px;
   height: 30px;
   border-radius: 50%;

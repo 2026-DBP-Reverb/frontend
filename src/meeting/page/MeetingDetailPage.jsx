@@ -6,9 +6,6 @@ import {DEFAULT_MEETING_IMAGE_URL} from "../api/meetupApi";
 import * as S from "../style/StyledMeetingDetail";
 import MeetingSettlementTab from "../components/MeetingSettlementTab";
 
-const API_BASE_URL =
-  process.env.REACT_APP_API_BASE_URL ?? "http://localhost:8080";
-const DEFAULT_PROFILE_IMAGE_URL = "/images/Profile1.svg";
 const CATEGORY_LABELS = {
   CONCERT: "콘서트",
   FESTIVAL: "페스티벌",
@@ -16,17 +13,6 @@ const CATEGORY_LABELS = {
   OTHER: "기타",
 };
 
-function resolveProfileImageUrl(imageUrl) {
-  if (!imageUrl) {
-    return DEFAULT_PROFILE_IMAGE_URL;
-  }
-
-  if (/^https?:\/\//i.test(imageUrl)) {
-    return imageUrl;
-  }
-
-  return new URL(imageUrl, API_BASE_URL).toString();
-}
 
 function formatMeetingDate(value) {
   if (!value) {
@@ -267,12 +253,8 @@ export default function MeetingDetailPage() {
                   {(meeting.participants ?? []).map((member) => (
                     <S.MemberRow key={member.memberId}>
                       <S.ProfileImage
-                        src={resolveProfileImageUrl(member.profileImageUrl)}
+                        src={member.profileImageUrl}
                         alt={`${member.nickname} 프로필`}
-                        onError={(event) => {
-                          event.currentTarget.onerror = null;
-                          event.currentTarget.src = DEFAULT_PROFILE_IMAGE_URL;
-                        }}
                       />
                       <S.Nickname>{member.nickname}</S.Nickname>
                       {member.memberId === meeting.hostMemberId && (
