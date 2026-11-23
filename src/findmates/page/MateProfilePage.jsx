@@ -48,7 +48,7 @@ export default function MateProfilePage() {
 
     // 상태에 따라 버튼 하나 정하기
     let actionButton;
-    if (profile.matched) {
+    if (profile.isMyMate) {
         actionButton = <S.ActionButton disabled>매칭 완료</S.ActionButton>;
     } else if (profile.requestStatus === "SENT") {
         actionButton = <S.ActionButton disabled>수락 대기 중</S.ActionButton>;
@@ -59,7 +59,7 @@ export default function MateProfilePage() {
 
     // 매칭 여부에 따라 인스타 문구 정하기
     let instagramText;
-    if (!profile.matched) {
+    if (!profile.isMyMate) {
         instagramText = "매칭 후 공개돼요";
     } else if (profile.instagramId) {
         instagramText = `@${profile.instagramId}`;
