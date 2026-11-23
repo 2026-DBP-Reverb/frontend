@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { keyframes } from 'styled-components';
 import { title2, text1, text2Bold } from "../../styles/typography";
 
 export const Container = styled.div`
@@ -100,13 +100,36 @@ export const TabPanel = styled.div`
   margin-top: 8px;
 `;
 
-// 장르 동그라미 (시안은 흩어져 있지만, 개수가 달라져도 깨지지 않게 줄 맞춤)
+const float = keyframes`
+  0%, 100% { transform: translate(0, 0); }
+  25% { transform: translate(6px, -8px); }
+  50% { transform: translate(-5px, -14px); }
+  75% { transform: translate(-8px, -4px); }
+`;
+
 export const GenreList = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 24px;
-  padding-top: 40px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  align-content: center;
+  justify-items: center;
+  gap: 24px 16px;
+  width: 100%;
+  min-height: 360px;
+  padding: 28px 12px 24px;
+  overflow: hidden;
+`;
+
+export const GenreMotion = styled.div`
+  animation: ${float} ${({$duration}) => $duration}s ease-in-out infinite alternate;
+  animation-delay: ${({$delay}) => $delay}s;
+
+  &:nth-child(even) {
+    margin-top: 20px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
 `;
 
 export const GenreCircle = styled.div`

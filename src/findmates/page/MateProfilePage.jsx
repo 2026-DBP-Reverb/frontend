@@ -95,8 +95,14 @@ export default function MateProfilePage() {
                             <S.TabPanel>
                                 {tab === "genre" && (
                                     <S.GenreList>
-                                        {profile.genres.map((genre) => (
-                                            <S.GenreCircle key={genre.genreId}>{genre.genreName}</S.GenreCircle>
+                                        {profile.genres.map((genre, index) => (
+                                            <S.GenreMotion
+                                                key={genre.genreId}
+                                                $duration={3.5 + (index % 3) * 0.5}
+                                                $delay={-index * 0.35}
+                                            >
+                                                <S.GenreCircle>{genre.genreName}</S.GenreCircle>
+                                            </S.GenreMotion>
                                         ))}
                                     </S.GenreList>
                                 )}
