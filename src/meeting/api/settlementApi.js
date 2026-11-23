@@ -1,6 +1,25 @@
 const API_BASE_URL =
   process.env.REACT_APP_API_BASE_URL ?? "http://localhost:8080";
 
+export async function confirmSettlement(settlementId, requestedMemberId) {
+  const response = await fetch(
+    `${API_BASE_URL}/api/settlements/${settlementId}/${requestedMemberId}`,
+    {
+      method: 'PUT',
+      credentials: 'include',
+    }
+  );
+  const result = await response.json().catch(() => null);
+
+  if (!response.ok || result?.success !== true || !result?.data?.confirmedAt) {
+    throw new Error(
+      result?.error?.detail ?? result?.message ?? '정산 확인에 실패했어요.'
+    );
+  }
+
+  return result.data;
+}
+
 export async function createSettlement(settlement) {
   const response = await fetch(`${API_BASE_URL}/api/settlements`, {
     method: "POST",
