@@ -147,15 +147,7 @@ export default function EditProfilePage() {
                   fill="#FAFAFA"/>
               </svg>
             </S.UploadIcon>
-            {imageUrl ? (
-              <S.ProfileImage
-                src={imageUrl}
-                alt="프로필 사진"
-                onError={() => setImageUrl("")}
-              />
-            ) : (
-              <S.ProfileImage src={`${process.env.PUBLIC_URL}/images/Profile1.svg`} alt="기본 프로필 이미지"/>
-            )}
+            <S.ProfileImage src={imageUrl} alt="프로필 사진" />
           </S.ImageUploadSection>
 
           <S.InputList>

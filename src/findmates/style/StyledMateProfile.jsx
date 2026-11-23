@@ -1,5 +1,6 @@
 import styled, { keyframes } from 'styled-components';
 import { title2, text1, text2Bold } from "../../styles/typography";
+import BaseProfileImage from '../../components/ProfileImage';
 
 export const Container = styled.div`
   display: flex;
@@ -24,7 +25,7 @@ export const ProfileCard = styled.div`
   padding: 12px 8px;
 `;
 
-export const ProfileImage = styled.img`
+export const ProfileImage = styled(BaseProfileImage)`
   width: 120px;
   height: 120px;
   flex-shrink: 0;

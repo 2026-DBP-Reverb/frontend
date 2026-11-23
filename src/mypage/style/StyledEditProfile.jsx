@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Input from "../../components/Input";
 import {labelText, text1} from "../../styles/typography";
+import BaseProfileImage from '../../components/ProfileImage';
 
 export const Form = styled.form`
   display: flex;
@@ -25,12 +26,14 @@ export const ImageUploadSection = styled.button`
     outline-offset: 2px;
   }
 `;
-export const ProfileImage = styled.img`
+export const ProfileImage = styled(BaseProfileImage)`
   display: block;
   width: 120px;
   height: 120px;
   aspect-ratio: 1/1;
   border-radius: 65536px;
+  object-fit: cover;
+  object-position: center;
 `;
 
 export const UploadIcon = styled.div`

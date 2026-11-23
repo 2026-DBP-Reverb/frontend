@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import PillButton from "../../components/PillButton";
 import {labelText, text1, text1Bold, text2, title3,} from "../../styles/typography";
+import BaseProfileImage from '../../components/ProfileImage';
 
 export const Container = styled.div`
   position: relative;
@@ -193,7 +194,7 @@ export const MemberRow = styled.li`
   border-bottom: 0.5px solid var(--Gray, #bdbdbd);
 `;
 
-export const ProfileImage = styled.img`
+export const ProfileImage = styled(BaseProfileImage)`
   display: block;
   width: 40px;
   height: 40px;

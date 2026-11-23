@@ -65,9 +65,7 @@ export default function HomePage() {
           membersResult.value.map((member) => ({
             id: member.memberId,
             name: member.nickname,
-            profileImage:
-              member.profileImageUrl ||
-              `${process.env.PUBLIC_URL}/images/Profile1.svg`,
+            profileImage: member.profileImageUrl,
             favoriteArtists: Array.isArray(member.hashtags)
               ? member.hashtags
               : [],

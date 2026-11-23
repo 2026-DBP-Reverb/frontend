@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { Link } from 'react-router-dom';
 import { labelText, text1 } from "../styles/typography";
+import BaseProfileImage from './ProfileImage';
 
 const Card = styled(Link)`
     color: inherit;
@@ -35,7 +36,7 @@ const Profile = styled.div`
     flex-shrink: 0;
 `;
 
-const ProfileImage = styled.img`
+const ProfileImage = styled(BaseProfileImage)`
     border-radius: 50%;
     object-fit: cover;
     width: 18px;

@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { title2, title3, text2Bold, text1Bold } from "../../styles/typography";
+import BaseProfileImage from '../../components/ProfileImage';
 
 export const Title = styled.h1`
   ${title2};
@@ -60,7 +61,7 @@ export const Profile = styled.div`
   gap: 8px;
 `;
 
-export const ProfileImage = styled.img`
+export const ProfileImage = styled(BaseProfileImage)`
   width: 80px; 
   height: 80px; 
   border-radius: 50%; 

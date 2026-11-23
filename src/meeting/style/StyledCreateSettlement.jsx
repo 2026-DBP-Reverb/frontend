@@ -3,6 +3,7 @@ import PillButton from "../../components/PillButton";
 import {labelText, text1} from "../../styles/typography";
 import * as Meeting from "./StyledCreateMeeting";
 import * as Members from "./StyledMeetingMembers";
+import BaseProfileImage from '../../components/ProfileImage';
 
 export const Form = styled(Meeting.Form)`
   margin-top: 0;
@@ -61,7 +62,7 @@ export const MemberRow = styled.div`
   }
 `;
 
-export const Avatar = styled.img`
+export const Avatar = styled(BaseProfileImage)`
   width: 24px;
   height: 24px;
   flex: 0 0 24px;
