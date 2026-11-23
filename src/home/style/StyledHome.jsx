@@ -44,12 +44,7 @@ export const MeetingList = styled.div`
   overflow-x: auto;
 
   padding-right: 15px;
-  cursor: grab;
   user-select: none;
-
-  &:active {
-    cursor: grabbing;
-  }
 
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;

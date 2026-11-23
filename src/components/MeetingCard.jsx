@@ -1,80 +1,92 @@
 import styled from "styled-components";
-// import { Link } from "react-router-dom";
-import { text1 } from "../styles/typography";
+import { Link } from 'react-router-dom';
+import { labelText, text1 } from "../styles/typography";
 
-// 상세 페이지 연결 확정 후 styled(Link)로 다시 변경합니다.
-const Card = styled.div`
-  position: relative;
-  flex: 0 0 200px;
-  width: 200px;
-  height: 160px;
-  overflow: hidden;
-  border-radius: 8px;
-  background: linear-gradient(
-    180deg,
-    rgba(23, 23, 27, 0.15) 0%,
-    rgba(23, 23, 27, 0.8) 100%
-  );
+const Card = styled(Link)`
+    position: relative;
+    flex: 0 0 200px;
+    width: 200px;
+    height: 160px;
+    overflow: hidden;
+    border-radius: 8px;
 
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  color: inherit;
-  text-decoration: none;
+    &::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        background: linear-gradient(
+                180deg,
+                rgba(23, 23, 27, 0.15) 0%,
+                rgba(23, 23, 27, 0.8) 100%
+        );
+        pointer-events: none;
+    }
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: inherit;
+    text-decoration: none;
 `;
 
 const CardImage = styled.img`
-  width: 100%;
-  height: 100%;
-  display: block;
-  object-fit: cover;
-  border-radius: 8px;
-  user-select: none;
-  pointer-events: none;
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    border-radius: 8px;
+    user-select: none;
+    pointer-events: none;
 `;
 
 const CardInfo = styled.div`
-  ${text1};
-  position: absolute;
-  right: 0;
-  bottom: 15px;
-  left: 0;
+    ${ text1 };
+    position: absolute;
+    z-index: 2;
+    right: 0;
+    bottom: 15px;
+    left: 0;
 
-  display: flex;
-  box-sizing: border-box;
-  padding: 0 15px;
-  justify-content: space-between;
-  align-items: flex-end;
+    display: flex;
+    box-sizing: border-box;
+    padding: 0 15px;
+    justify-content: space-between;
+    align-items: center;
 
-  color: var(--White, #fafafa);
+    color: var(--White, #fafafa);
 `;
 
 const Title = styled.span`
-  min-width: 0;
-  overflow: hidden;
-  line-height: 1.3;
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    line-height: normal;
 `;
 
 const MemberCount = styled.span`
-  flex-shrink: 0;
-  white-space: nowrap;
-  line-height: 1.3;
+    ${ labelText };
+    flex-shrink: 0;
+    white-space: nowrap;
+    line-height: normal;
 `;
 
 export default function MeetingCard({
+                                      id,
                                       title,
                                       image,
                                       currentMembers,
                                       maxMembers,
                                     }) {
   return (
-    // 상세 페이지 연결 논의 후: <Card to={`/meetings/${id}`}> 형태로 연결합니다.
-    <Card>
-      <CardImage src={image} alt="" draggable="false"/>
+    <Card to={`/meetings/${id}`} draggable="false">
+      <CardImage src={ image } alt="" draggable="false"/>
       <CardInfo>
-        <Title>{title}</Title>
+        <Title>{ title }</Title>
         <MemberCount>
-          ({currentMembers}명 / {maxMembers}명)
+          ({ currentMembers }명 / { maxMembers }명)
         </MemberCount>
       </CardInfo>
     </Card>
