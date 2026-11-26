@@ -27,9 +27,9 @@ const myInfoMenus = [
 
 export default function MyPage() {
   const navigate = useNavigate();
-  const {resetTaste} = useMusicTaste();
-  const [member, setMember] = useState(null);
-  const [errorMessage, setErrorMessage] = useState("");
+  const { resetTaste } = useMusicTaste();
+  const [ member, setMember ] = useState(null);
+  const [ errorMessage, setErrorMessage ] = useState("");
 
   useEffect(() => {
     async function loadMyProfile() {
@@ -48,7 +48,7 @@ export default function MyPage() {
     try {
       await logout();
       resetTaste();
-      navigate('/', {replace: true});
+      navigate("/", { replace: true });
     } catch (error) {
       setErrorMessage(error.message);
     }
@@ -60,37 +60,37 @@ export default function MyPage() {
       label: "로그아웃",
       onClick: handleLogout,
     },
-    {
-      icon: "/images/DeleteAccIcon.svg",
-      label: "회원 탈퇴",
-      onClick: null,
-    },
+    // {
+    //   icon: "/images/DeleteAccIcon.svg",
+    //   label: "회원 탈퇴",
+    //   onClick: null,
+    // },
   ];
 
   return (
     <main className="page-layout page-layout--with-navigation">
       <div className="page-content">
-        <div style={{paddingTop: "60px"}}/>
+        <div style={ { paddingTop: "60px" } }/>
 
-        {member && (
+        { member && (
           <ProfileCard
-            name={member.nickname}
-            profileImage={member.profileImageUrl}
-            instagramId={member.instagramId}
+            name={ member.nickname }
+            profileImage={ member.profileImageUrl }
+            instagramId={ member.instagramId }
             buttonText="프로필 편집"
           />
-        )}
+        ) }
 
-        {errorMessage && <p role="alert">{errorMessage}</p>}
+        { errorMessage && <p role="alert">{ errorMessage }</p> }
 
         <MyPageMenu>
           <MenuList
             title="내 정보"
-            items={myInfoMenus}
+            items={ myInfoMenus }
           />
           <MenuList
             title="계정"
-            items={accountMenus}
+            items={ accountMenus }
           />
         </MyPageMenu>
 
